@@ -1,0 +1,13 @@
+
+{% extends 'Base.html' %}
+{% block content %}
+<h1> Crear Oficina</h1>
+{{error}}
+<form action="/oficinas/crear/" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+<button class="btn btn-success">
+    Guardar
+</button>
+</form>
+{% endblock %}

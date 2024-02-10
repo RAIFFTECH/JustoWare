@@ -11,3 +11,6 @@ class LOCALIDADES(models.Model):
     class Meta:
         unique_together = [['cliente', 'codigo']]
         db_table = 'localidades'
+
+    def __str__(self):
+        return self.nombre + '-' +self.departamento

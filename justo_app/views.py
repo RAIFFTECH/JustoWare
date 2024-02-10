@@ -59,6 +59,7 @@ def Iniciar_Sesion(request):
         })
         else:
             login(request, usuario)
+            request.session['CLIENTE_GLOBAL']='RAIFFTECH SAS'
             return redirect('JustoAdm')
 
 

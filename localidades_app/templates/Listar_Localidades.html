@@ -1,42 +1,13 @@
 
 {% block content %}
-<h1> Lista de Clientes</h1>
+<h1> Lista de Localidades</h1>
 
 <ul>
     {% for Lista in Lista %}
     <li>
-        <a href="{% url 'Listar_Clientes' %}">
+        <a href="{% url 'Listar_Localidades' %}">
             <h1>{{Lista.codigo}}</h1>
-            <p>{{Lista.nombre }}</p>
-            <p>{{Lista.sigla}}</p>
-            <p>{{Lista.codigo}}</p>
-            <p>{{Lista.doc_ide}}</p>
-            <p>{{Lista.dv}}</p>
-            <p>{{Lista.sigla}}</p>
-            <p>{{Lista.nombre}}</p>
-            <p>{{Lista.direccion}}</p></p>
-            <p>{{Lista.telefono}}</p>
-            <p>{{Lista.celular}}</p>
-            <p>{{Lista.ciudad}}</p>
-            <p>{{Lista.email}}</p>
-            <p>{{Lista.dominio}}</p>
-            <p>{{Lista.nit_ger}}</p>
-            <p>{{Lista.nom_ger}}</p>
-            <p>{{Lista.nit_con}}</p>
-            <p>{{Lista.nom_con}}</p>
-            <p>{{Lista.tp_con}}</p>
-            <p>{{Lista.nit_rev_fis}}</p>
-            <p>{{Lista.nom_rev_fis}}</p>
-            <p>{{Lista.tp_rev_fis}}</p>
-            <p>{{Lista.age_ret}}</p>
-            <p>{{Lista.ret_iva}}</p>
-            <p>{{Lista.aut_ret}}</p>
-            <p>{{Lista.logo}}</p>
-            <p>{{Lista.num_lic}}</p>
-            <p>{{Lista.lic_act}}</p>
-            <p>{{Lista.ini_lic}}</p>
-            <p>{{Lista.fin_lic}}</p>
-            
+            <p>{{Lista.nombre}}</p>            
         </a>
     </li>
     <label for="exampleDataList" class="form-label">Datalist example</label>

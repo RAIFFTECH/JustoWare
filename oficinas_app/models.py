@@ -28,3 +28,6 @@ class OFICINAS(models.Model):
     class Meta:
         unique_together = [['cliente', 'codigo']]
         db_table = 'oficinas'
+
+    def __str__(self):
+        return self.codigo + ' ' + self.nombre_oficina

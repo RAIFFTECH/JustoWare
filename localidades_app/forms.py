@@ -6,4 +6,4 @@ class CrearForm(forms.ModelForm):
     
     class Meta:
         model = LOCALIDADES
-        fields = ['codigo','nombre','cod_pos','departamento']
+        fields = ['cliente','codigo','nombre','cod_pos','departamento']

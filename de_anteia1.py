@@ -7,7 +7,12 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Justo_proy.settings')
 import django
 django.setup()
 import requests
-import justo_app.models as justoAppModels
+from clientes_app.models import CLIENTES
+from oficinas_app.models import OFICINAS
+from terceros_app.models import TERCEROS
+from localidades_app.models import LOCALIDADES
+
+
 import time
 
 url = "https://dev.api.anteia.co/auth"
@@ -56,17 +61,17 @@ def init():
     anteia1 = response.json()
     with open(nom_arc, 'w') as archivo:
         archivo.write(str(anteia1))
-    Cliente = justoAppModels.CLIENTES.objects.filter(codigo='A').first()
+    Cliente = CLIENTES.objects.filter(codigo='A').first()
     if Cliente == None:
-        Cliente=justoAppModels.CLIENTES.objects.create(codigo = "A",
+        Cliente=CLIENTES.objects.create(codigo = "A",
             doc_ide = '892000914',
             sigla = 'COORINOQUIA',
             nombre = 'COOPERATIVA ESPECIALIZADA DE AHORRO Y CRÉDITO DE LA ORINOQUIA',
             celular = '3118993251',
         )
-    Oficina = justoAppModels.OFICINAS.objects.filter(codigo='A0001').first()
+    Oficina = OFICINAS.objects.filter(codigo='A0001').first()
     if Oficina == None:
-        Oficina=justoAppModels.OFICINAS.objects.create(cliente = Cliente,codigo = "A0001",
+        Oficina=OFICINAS.objects.create(cliente = Cliente,codigo = "A0001",
             contabiliza = 'S',
             nombre_oficina = 'Oficina Principal',
             responsable = 'Jose Guillermo Prieto López',
@@ -81,12 +86,12 @@ def init():
         dirTot = dirTot + ' '+anteia1['flows'][idsocio]['user.manualAdress.numViaDos']
         tipVia = anteia1['flows'][idsocio]['user.manualAdress.tipoVia']
         direccion = tipVia+' '+dirTot
-        Cliente = justoAppModels.CLIENTES.objects.filter(codigo='A').first()
-        Tercero = justoAppModels.TERCEROS.objects.filter(cliente=Cliente,
+        Cliente = CLIENTES.objects.filter(codigo='A').first()
+        Tercero = TERCEROS.objects.filter(cliente=Cliente,
             cla_doc = anteia1['flows'][idsocio]['user.document.type.cod'][0],
             doc_ide = anteia1['flows'][idsocio]['user.document.number']).first()
         if Tercero == None:
-            Tercero = justoAppModels.TERCEROS.objects.create(
+            Tercero = TERCEROS.objects.create(
                 cliente = Cliente,
                 cla_doc = anteia1['flows'][idsocio]['user.document.type.cod'][0],
                 doc_ide = anteia1['flows'][idsocio]['user.document.number']
@@ -102,10 +107,10 @@ def init():
         Tercero.nit_rap = ' '
         Tercero.tel_res = anteia1['flows'][idsocio]['user.phone']
         Tercero.celular1 =  anteia1['flows'][idsocio]['user.phone'] # Celular
-        Localidad = justoAppModels.LOCALIDADES.objects.filter(cliente=Cliente,
+        Localidad = LOCALIDADES.objects.filter(cliente=Cliente,
             codigo=anteia1['flows'][idsocio]['user.document.expeditionCity.cod']).first()
         Tercero.cod_ciu_exp = Localidad
-        Localidad = justoAppModels.LOCALIDADES.objects.filter(cliente=Cliente,
+        Localidad = LOCALIDADES.objects.filter(cliente=Cliente,
             codigo=anteia1['flows'][idsocio]['user.city.cod']).first()
         Tercero.cod_ciu_res = Localidad
         print('Fecha ',anteia1['flows'][idsocio]['user.document.expeditionDate2'])
@@ -115,10 +120,10 @@ def init():
         Tercero.regimen = '49'
         Tercero.save()
         #   Asociados 
-        Asociado = justoAppModels.ASOCIADOS.objects.filter(oficina=Oficina,
+        Asociado = ASOCIADOS.objects.filter(oficina=Oficina,
             cod_aso = doc_ide).first()
         if Asociado == None:
-            Asociado = justoAppModels.ASOCIADOS.objects.create(
+            Asociado = ASOCIADOS.objects.create(
                 oficina = Oficina,
                 cod_aso = doc_ide,
             )
@@ -184,9 +189,9 @@ def init():
         
         Asociado.save()
         # Estados Financieros
-        Estados_Fin = justoAppModels.estados_fin.objects.filter(cliente=Cliente,tercero=Tercero).first()
+        Estados_Fin = ESTADOS_FIN.objects.filter(cliente=Cliente,tercero=Tercero).first()
         if Estados_Fin == None:
-            Estados_Fin = justoAppModels.estados_fin.objects.create(
+            Estados_Fin = ESTADOS_FIN.objects.create(
                 cliente = Cliente,
                 tercero = Tercero,
             )
@@ -241,9 +246,9 @@ def init():
         Estados_Fin.save()
         if tipTra == 'Afiliación y solicitud de crédito':
             fec_hoy = datetime.strptime("2023-11-6", "%Y-%m-%d")
-            Originacion = justoAppModels.ORIGINACION.objects.filter(asociado=Asociado).first()
+            Originacion = ORIGINACION.objects.filter(asociado=Asociado).first()
             if Originacion == None:
-                Originacion = justoAppModels.ORIGINACION.objects.create(
+                Originacion = ORIGINACION.objects.create(
                     asociado = Asociado,
                 )     
             Originacion.lin_cre = anteia1['flows'][idsocio]['coorinoquia.solicitudCredito.linea']				
@@ -256,9 +261,9 @@ def init():
 
         for beneficiario in anteia1['arrayData'][idsocio]['coorinoquia.beneficiarios']['data']:
             benNumDoc = beneficiario['index']
-            Aso_benef = justoAppModels.ASO_BENEF.objects.filter(asociado = Asociado,doc_ide = benNumDoc).first()
+            Aso_benef = ASO_BENEF.objects.filter(asociado = Asociado,doc_ide = benNumDoc).first()
             if Aso_benef == None:
-                Aso_benef = justoAppModels.ASO_BENEF.objects.create(
+                Aso_benef = ASO_BENEF.objects.create(
                     asociado = Asociado,
                     doc_ide = benNumDoc,
             )

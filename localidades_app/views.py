@@ -55,4 +55,4 @@ def Eliminar_Localidad(request, LOCALIDADES_id):
     Localidad = get_object_or_404(LOCALIDADES, pk=LOCALIDADES_id)
     if request.method == 'POST':
         Localidad.delete()
-        return redirect('Listar_Clientes')
+        return redirect('Listar_Localidades')

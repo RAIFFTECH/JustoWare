@@ -26,7 +26,7 @@ def Crear_Tercero(request):
 
 @login_required
 def Listar_Terceros(request):
-    Lista = TERCEROS.objects.all()
+    Lista = TERCEROS.objects.filter(cliente=request.user)
     return render(request, 'Listar_Terceros.html', {'Lista': Lista})
 
 

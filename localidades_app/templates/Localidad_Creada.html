@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>{{Clientes.cliente}}</h1>
+<h1>{{Localidades.localidad}}</h1>
 {{error}}
 <form method="POST">
     {% csrf_token %}
@@ -11,7 +11,7 @@
         Modificar
     </button>
 </form>
-<form action="{% url 'Eliminar_Cliente' Clientes.id %}"method="POST">
+<form action="{% url 'Localidad_Creada' Localidades.id %}" method="POST">
     <!-- {% csrf_token %}
     {{form.as_p}} -->
     <button class="btn btn-danger">Eliminar</button>

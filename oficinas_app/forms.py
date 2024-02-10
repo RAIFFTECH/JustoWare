@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django import forms
-from .models import LOCALIDADES
+from .models import OFICINAS
 
 class CrearForm(forms.ModelForm):
     
     class Meta:
-        model = LOCALIDADES
-        fields = ['codigo','nombre','cod_pos','departamento']
+        model = OFICINAS
+        fields = ['cliente','codigo','nombre_oficina','responsable','celular','email','contabiliza']

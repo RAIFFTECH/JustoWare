@@ -1,11 +1,11 @@
 
 {% block content %}
-<h1> Lista de Clientes</h1>
+<h1> Lista de Terceros</h1>
 
 <ul>
     {% for Lista in Lista %}
     <li>
-        <a href="{% url 'Listar_Clientes' %}">
+        <a href="{% url 'Tercero_Creado' TERCEROS_id %}">
             <h1>{{Lista.codigo}}</h1>
             <p>{{Lista.nombre }}</p>
             <p>{{Lista.sigla}}</p>

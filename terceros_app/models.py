@@ -10,8 +10,8 @@ class TERCEROS(models.Model):
     cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
     cla_doc = models.CharField(max_length=1, choices=OPC_CLASEDOC, verbose_name='Tipo Documento')
     doc_ide = models.CharField(max_length=12, null=False, verbose_name='Número Documento')
-    dig_ver = models.CharField(max_length=1, null=True, verbose_name='DV')
-    nit_rap = models.CharField(max_length=12, null=True, verbose_name='Nit Rápido')
+    dig_ver = models.CharField(max_length=1, null=False, verbose_name='DV')
+    nit_rap = models.CharField(max_length=12, null=False, verbose_name='Nit Rápido')
     cod_ciu_exp = models.ForeignKey(
         LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_exp', null=True, blank=True, verbose_name='Ciudad Expedición Documento')
     cod_ciu_res = models.ForeignKey(
@@ -20,10 +20,10 @@ class TERCEROS(models.Model):
     fec_exp_ced = models.DateField(null=True, blank=True, verbose_name='Fecha Expedición Documento')
     tip_ter = models.CharField(max_length=12, choices=OPC_TIPTER, verbose_name='Tipo Tercero')
     pri_ape = models.CharField(max_length=28, null=True, verbose_name='Primer Apellido')
-    seg_ape = models.CharField(max_length=28, null=True, verbose_name='Segundo Apellido')
+    seg_ape = models.CharField(max_length=28, null=False, verbose_name='Segundo Apellido')
     pri_nom = models.CharField(max_length=28, null=True, verbose_name='Primer Nombre')
-    seg_nom = models.CharField(max_length=28, null=True, verbose_name='Segundo Nombre')
-    raz_soc = models.CharField(max_length=120, null=True, verbose_name='Razón Social')
+    seg_nom = models.CharField(max_length=28, null=False, verbose_name='Segundo Nombre')
+    raz_soc = models.CharField(max_length=120, null=False, verbose_name='Razón Social')
     direccion = models.CharField(max_length=80, null=True, verbose_name='Dirección')
     cod_pos = models.CharField(max_length=8, null=True, verbose_name='Código Postal')
     tel_ofi = models.CharField(max_length=10, null=True, verbose_name='Teléfono Oficina')
@@ -37,9 +37,9 @@ class TERCEROS(models.Model):
     celular2 = models.CharField(max_length=10, null=True, verbose_name='Celular 2')
     fax = models.CharField(max_length=10, null=True, verbose_name='Fax')
     email = models.EmailField(verbose_name='e-mail')
-    nombre = models.CharField(max_length=120, blank=True, null=True, verbose_name='Nombre')
+    nombre = models.CharField(max_length=120, blank=True, null=False, verbose_name='Nombre')
     fec_act = models.DateField(null=True, blank=True, verbose_name='Fecha Actualización')
-    observacion = models.CharField(max_length=255, null=True, verbose_name='Observación')
+    observacion = models.CharField(max_length=255, null=False, verbose_name='Observación')
     per_pub_exp = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Persona Expuesta PEP')
     nit_interno = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Nit Interno')
 
@@ -54,3 +54,6 @@ class TERCEROS(models.Model):
     class Meta:
         unique_together = [['cliente', 'cla_doc', 'doc_ide']]
         db_table = 'terceros'
+    
+    def __str__(self):
+        return self.doc_ide + ' ' + self.nombre

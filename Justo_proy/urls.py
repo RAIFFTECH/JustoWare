@@ -31,5 +31,6 @@ urlpatterns = [
     path('justo/', include('justo_app.urls')),
     path('localidades/', include('localidades_app.urls')),
     path('terceros/', include('terceros_app.urls')),
+    path('oficinas/', include('oficinas_app.urls')),
     
 ]
