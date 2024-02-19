@@ -8,6 +8,11 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 import inflect
 from num2words import num2words
+from clientes_app.models import CLIENTES
+
+CLIENTE_GLOBAL = 'este es una prueba'
+OFICINA_GLOBAL = ''
+PERIODO_GLOBAL = ''
 
 # Create your views here.
 
@@ -26,6 +31,7 @@ def Registrar_Usuario(request):
                 usuario = User.objects.create_user(
                     username=request.POST['username'], password=request.POST['password1'])
                 usuario.save()
+                # user = authenticate(username=usuario.clean_fields['username'],password=usuario.clean_fields['password1'])
                 login(request, usuario)
                 return redirect('Inicio')
             except IntegrityError:
@@ -59,7 +65,7 @@ def Iniciar_Sesion(request):
         })
         else:
             login(request, usuario)
-            request.session['CLIENTE_GLOBAL']='RAIFFTECH SAS'
+            print(request)
             return redirect('JustoAdm')
 
 
