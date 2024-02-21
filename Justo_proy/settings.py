@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'ctas_ahorros_app',
     'asociados_app',
     'lineas_ahorro_app',
+    'cuentas_app',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

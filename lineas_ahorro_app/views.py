@@ -9,24 +9,18 @@ from django import forms
 from .models import LINEAS_AHORRO
 
 # Para obtener todos los registros de la tabla de pagadores
-
-
 class Lista(LoginRequiredMixin, ListView):
     model = LINEAS_AHORRO
     form = LINEAS_AHORRO
     template_name = 'lista.html'
 
 # Para obtener todos los campos de un registro de la tabla pagadores
-
-
 class Detalles(LoginRequiredMixin, DetailView):
     model = LINEAS_AHORRO
     form = LINEAS_AHORRO
     template_name = 'detalles1.html'
 
 # Para crear un nuevo pagador en la tabla pagadores
-
-
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = LINEAS_AHORRO
     form = LINEAS_AHORRO
@@ -41,8 +35,6 @@ class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('listar')
 
 # Para modificar un pagador existente de la tabla pagadores
-
-
 class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = LINEAS_AHORRO
     form = LINEAS_AHORRO
@@ -56,8 +48,6 @@ class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return reverse('listar')
 
 # Para eliminar un pagador de la tabla pagadores
-
-
 class Eliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = LINEAS_AHORRO
     form = LINEAS_AHORRO

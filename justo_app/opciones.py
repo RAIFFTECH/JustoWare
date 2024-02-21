@@ -192,3 +192,8 @@ OPC_ESTADO_ANTEIA = (
     ('2', 'Por Validar'),
     ('3', 'Denegar')
 )
+
+OPC_TIP_CTA = (
+    ('C', 'Cuenta'),
+    ('A', 'Auxiliar')
+)
