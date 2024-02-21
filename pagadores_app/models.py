@@ -8,9 +8,9 @@ class PAGADORES(models.Model):
     codigo = models.CharField(max_length=5,verbose_name="Código",null = True)
     nombre = models.CharField(max_length=40,verbose_name="Nombre", null=False)
     ciudad = models.ForeignKey(LOCALIDADES, on_delete=models.CASCADE, verbose_name="Ciudad",null=True)
-    pagador = models.CharField(max_length=72,verbose_name="Pagador",null = True)
-    tel_cel = models.CharField(max_length=10,verbose_name="Teléfono Celular",null = True)
-    
+    pagador = models.CharField(max_length=72, verbose_name="Pagador", null=True)
+    tel_cel = models.CharField(max_length=10, verbose_name="Teléfono Celular", null=True)
+
     class Meta:
         unique_together = [['cliente','codigo']]
         db_table = 'pagadores'

@@ -1,28 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django import forms
+from .forms import CrearForm
 from .models import PAGADORES
-from django.contrib.auth.decorators import login_required
 
 # Para obtener todos los registros de la tabla de pagadores
-# @login_required
-class Lista(ListView):
+class Lista(LoginRequiredMixin,ListView):
     model = PAGADORES
     template_name = 'lista.html'
 
 # Para obtener todos los campos de un registro de la tabla pagadores
-# @login_required
-class Detalles(DetailView):
+class Detalles(LoginRequiredMixin,DetailView):
     model = PAGADORES
     template_name = 'detalles.html'
  
 # Para crear un nuevo pagador en la tabla pagadores
-# @login_required
-class Crear(SuccessMessageMixin,CreateView):
+class Crear(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     model = PAGADORES
     form = PAGADORES
     fields = "__all__"
@@ -33,11 +31,10 @@ class Crear(SuccessMessageMixin,CreateView):
 
     # Redirigimos a la página principal tras insertar el registro
     def get_success_url(self):
-        return reverse('Lista')
+        return reverse('listar')
 
 # Para modificar un pagador existente de la tabla pagadores
-# @login_required
-class Actualizar(SuccessMessageMixin, UpdateView):
+class Actualizar(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
     model = PAGADORES
     form = PAGADORES
     fields = "__all__"
@@ -47,11 +44,10 @@ class Actualizar(SuccessMessageMixin, UpdateView):
 
     # Redireccionamos a la página principal tras actualizar el registro
     def get_success_url(self):
-        return render(self, template_name='lista.html')
+        return reverse('listar')
 
 # Para eliminar un pagador de la tabla pagadores
-# @login_required
-class Eliminar(SuccessMessageMixin, DeleteView):
+class Eliminar(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = PAGADORES
     form = PAGADORES
     fields = "__all__"
@@ -61,4 +57,4 @@ class Eliminar(SuccessMessageMixin, DeleteView):
         # Mensaje que se mostrará cuando se elimine el registro
         success_message = 'Registro eliminado correctamente.'
         messages.success(self.request, (success_message))
-        return render('Lista')
+        return reverse('listar')
