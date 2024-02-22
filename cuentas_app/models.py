@@ -25,7 +25,7 @@ class PLAN_CTAS(models.Model):
     cta_ing_ret = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Cuenta Ingresos y Retenciones?')
     cta_ret_iva = models.CharField(max_length=1, choices=OPC_BOOL,verbose_name='Cuenta Reteiva?')
     cta_rec = models.CharField(max_length=1, choices=OPC_BOOL,verbose_name='Cuenta Recíproca?')
-    id_ds = models.BigIntegerField(null=True, db_index=True)
+    id_ds = models.BigIntegerField(null=True,blank=True, db_index=True)
 
     class Meta:
         unique_together = [['cliente', 'per_con', 'cod_cta']]

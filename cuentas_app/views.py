@@ -11,19 +11,19 @@ from .models import PLAN_CTAS
 # Para obtener todos los registros de la tabla de pagadores
 class Lista(LoginRequiredMixin, ListView):
     model = PLAN_CTAS
-    template_name = 'lista1.html'
+    template_name = 'lista_cuentas.html'
 
 # Para obtener todos los campos de un registro de la tabla pagadores
 class Detalles(LoginRequiredMixin, DetailView):
     model = PLAN_CTAS
-    template_name = 'detalles1.html'
+    template_name = 'detalles_cuenta.html'
 
 # Para crear un nuevo pagador en la tabla pagadores
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = PLAN_CTAS
     form = PLAN_CTAS
     fields = "__all__"
-    template_name = 'crear1.html'
+    template_name = 'crear_cuenta.html'
 
     # Mensaje que se mostrará cuando se inserte el registro
     success_message = 'Registro añadido correctamente.'
@@ -37,7 +37,7 @@ class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = PLAN_CTAS
     form = PLAN_CTAS
     fields = "__all__"
-    template_name = 'actualizar1.html'
+    template_name = 'actualizar_cuenta.html'
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Registro actualizado correctamente.'
 

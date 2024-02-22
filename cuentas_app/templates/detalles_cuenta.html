@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-	<title>Crear Pagadores - JustoWare</title> 
+	<title>Detalles Cuentas Contables - JustoWare</title> 
  
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
  
  {% load static %} <!-- Cargar URL raíz -->
- 
- {% load crispy_forms_tags %}	
+
+	
 </head>
  
 <body>
@@ -25,28 +25,30 @@
 			</button>
 			
 			<!-- Logotipo y siglas -->
-			<a class="navbar-brand" href="../lista"> 
-				<img alt="Agenda - Proyecto A"
-				src="{% static 'fotos/'%}Logo_JustoWare.ico" width="40" height="30" class="d-inline-block align-text-top"/>
-				<span>PA</span>
-			</a>			
- 	 		
+			<a class="navbar-brand" href="../">
+				<img alt="Cuentas Contables - JustoWare" style="background-color:#fcf9f9;"
+					src="{% static 'fotos/'%}Logo_justoware_blue.png" width="60" height="50"
+					class="d-inline-block align-text-center" />
+				<span>JustoWare</span>
+			</a>
+			
 			<div class="collapse navbar-collapse" id="menu_principal">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="/" id="submenu_principal" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
 							<i class="glyphicon glyphicon-time"></i>
-							Contactos</a>						
+							Cuentas Contables</a>
 						<!-- Iniciamos principio del grupo (menú) -->
-						<ul class="dropdown-menu" aria-labelledby="submenu_principal">						
-								<li><a class="dropdown-item" href="{% url 'listar' %}">
+						<ul class="dropdown-menu" aria-labelledby="submenu_principal">
+							<li><a class="dropdown-item" href="{% url 'listar' %}" width="30" height="30"
+									class="d-inline-block align-text-center">
 									<i class="glyphicon glyphicon-th-list"></i>
-									Listado</a>								
-								</li>
-								<li><a class="dropdown-item" href="{% url 'crear' %}">
+									Listado</a>
+							</li>
+							<li><a class="dropdown-item" href="{% url 'crear' %}">
 									<i class="glyphicon glyphicon-plus"></i>
-									Nuevo</a>								
+									Nueva</a>
 								</li>
 							</ul> <!-- Cierra la lista de submenús del grupo -->
 					</li> <!-- Cierra el grupo de submenús del menú principal -->							
@@ -56,7 +58,7 @@
 	<div class="collapse navbar-collapse" id="menu_principal">
 		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="listar" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<a class="nav-link dropdown-toggle" href="#" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					<i class="fas fa-user"> ProyectoA</i>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="submenu_principal">
@@ -77,17 +79,15 @@
 
 <div>		
 
-<form method="post" enctype="multipart/form-data">
-  <!-- Token de seguridad para poder crear un nuevo registro -->
-  {% csrf_token %}
-  {{form|crispy}}
- 
-  
-  <button type="submit" class="btn btn-success">Guardar</button>
-  <a href="{% url 'listar' %}" type="submit" class="btn btn-secondary">Cancelar</a>
- 
-</form>
 
+<p><span class="txt_negrita">Código:</span> <br> {{object.codigo}}</p>
+<p><span class="txt_negrita">Nombre:</span> <br> {{object.nombre}}</p>
+<p><span class="txt_negrita">Ciudad:</span> <br> {{object.ciudad}}</p>
+<p><span class="txt_negrita">Pagador:</span> <br> {{object.pagador}}</p>
+<p><span class="txt_negrita">Teléfono:</span> <br> {{object.tel_cel}}</p>
+ 
+<!-- Botón para volver a la vista principal (Home) -->
+<a href="../" type="submit" class="btn btn-secondary">Volver</a>
 
 </div>
  

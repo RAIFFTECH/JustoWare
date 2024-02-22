@@ -12,19 +12,19 @@ from .models import PAGADORES
 # Para obtener todos los registros de la tabla de pagadores
 class Lista(LoginRequiredMixin,ListView):
     model = PAGADORES
-    template_name = 'lista.html'
+    template_name = 'lista_pagador.html'
 
 # Para obtener todos los campos de un registro de la tabla pagadores
 class Detalles(LoginRequiredMixin,DetailView):
     model = PAGADORES
-    template_name = 'detalles.html'
+    template_name = 'detalles_pagador.html'
  
 # Para crear un nuevo pagador en la tabla pagadores
 class Crear(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     model = PAGADORES
     form = PAGADORES
     fields = "__all__"
-    template_name = 'crear.html'
+    template_name = 'crear_pagador.html'
 
     # Mensaje que se mostrará cuando se inserte el registro
     success_message = 'Registro añadido correctamente.'
@@ -38,7 +38,7 @@ class Actualizar(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
     model = PAGADORES
     form = PAGADORES
     fields = "__all__"
-    template_name = 'actualizar.html'
+    template_name = 'actualizar_pagador.html'
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Registro actualizado correctamente.'
 

@@ -12,20 +12,20 @@ from .models import CTAS_AHORRO
 class Lista(LoginRequiredMixin, ListView):
     model = CTAS_AHORRO
     form = CTAS_AHORRO
-    template_name = 'lista.html'
+    template_name = 'lista_cta_Aho.html'
 
 # Para obtener todos los campos de un registro de la tabla pagadores
 class Detalles(LoginRequiredMixin, DetailView):
     model = CTAS_AHORRO
     form = CTAS_AHORRO
-    template_name = 'detalles.html'
+    template_name = 'detalles_cta_Aho.html'
 
 # Para crear un nuevo pagador en la tabla pagadores
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = CTAS_AHORRO
     form = CTAS_AHORRO
     fields = "__all__"
-    template_name = 'crear.html'
+    template_name = 'crear_cta_Aho.html'
 
     # Mensaje que se mostrará cuando se inserte el registro
     success_message = 'Registro añadido correctamente.'
@@ -39,7 +39,7 @@ class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = CTAS_AHORRO
     form = CTAS_AHORRO
     fields = "__all__"
-    template_name = 'actualizar.html'
+    template_name = 'actualizar_cta_Aho.html'
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Registro actualizado correctamente.'
 

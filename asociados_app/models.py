@@ -8,7 +8,6 @@ from pagadores_app.models import PAGADORES
 from justo_app.models import DefaultToZeroMixin
 # Create your models here.
 
-
 class ASOCIADOS(DefaultToZeroMixin):
     cod_aso = models.CharField(max_length=12, null=False, verbose_name='Código Asociado')
     oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE, null=True, verbose_name='Oficina')

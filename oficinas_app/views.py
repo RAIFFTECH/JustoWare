@@ -27,11 +27,11 @@ def Crear_Oficina(request):
 @login_required
 def Listar_Oficinas(request):
     Lista = OFICINAS.objects.all()
-    return render(request, 'Listar_Oficinas.html', {'Lista': Lista})
+    return render(request, 'Lista_Oficinas.html', {'Lista': Lista})
 
 class Lista_Oficinas(ListView):
     model = OFICINAS
-    template_name = 'Listar_Oficinas.html'
+    template_name = 'Lista_Oficinas.html'
 
 
 @login_required
