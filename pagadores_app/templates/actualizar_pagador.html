@@ -26,7 +26,7 @@
 			</button>
 			
 			<!-- Logotipo y siglas -->
-			<a class="navbar-brand" href="lista.html"> 
+			<a class="navbar-brand" href="../lista"> 
 				<img alt="Agenda - Proyecto A"
 				src="{% static 'fotos/'%}Logo_JustoWare.ico" width="40" height="30" class="d-inline-block align-text-top"/>
 				<span>PA</span>
@@ -41,11 +41,11 @@
 							Contactos</a>						
 						<!-- Iniciamos principio del grupo (menú) -->
 						<ul class="dropdown-menu" aria-labelledby="submenu_principal">						
-								<li><a class="dropdown-item" href="{% url 'listar' %}">
+								<li><a class="dropdown-item" href="../lista">
 									<i class="glyphicon glyphicon-th-list"></i>
 									Listado</a>								
 								</li>
-								<li><a class="dropdown-item" href="{% url 'crear' %}">
+								<li><a class="dropdown-item" href="../crear">
 									<i class="glyphicon glyphicon-plus"></i>
 									Nuevo</a>								
 								</li>
@@ -58,7 +58,7 @@
 		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="fas fa-user"> ProyectoA</i>
+					<i class="fas fa-user"> Sesion</i>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="submenu_principal">
 					<li><a class="nav-link disabled"><i class="fa fa-asterisk"></i> 
@@ -86,7 +86,7 @@
   {{form|crispy}}
   
   <button type="submit" class="btn btn-success">Guardar</button>
-  <a href="{% url 'listar' %}" type="submit" class="btn btn-secondary">Cancelar</a>
+  <a href="../" type="submit" class="btn btn-secondary">Cancelar</a>
  
 </form>
 

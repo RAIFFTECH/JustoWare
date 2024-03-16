@@ -640,6 +640,7 @@ class CENTROCOSTOS(models.Model):
     id = models.SmallAutoField(primary_key=True)
     cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE)
     codigo = models.CharField(max_length=5,null = False)
+    
     class Meta:
         unique_together = [['cliente','codigo']]
         db_table = 'centro_costos'

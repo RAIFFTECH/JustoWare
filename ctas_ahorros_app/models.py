@@ -9,7 +9,7 @@ from justo_app.opciones import OPC_BOOL,OPC_EST_CTA_AHO
 class CTAS_AHORRO(models.Model):
     oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE,verbose_name='Oficina')
     lin_aho = models.ForeignKey(LINEAS_AHORRO, on_delete=models.CASCADE,verbose_name='Línea de Ahorro')
-    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.CASCADE,verbose_name='Nombre')
+    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.CASCADE,verbose_name='Nombre Asociado')
     num_cta = models.CharField(max_length=10, null=True,verbose_name='Número Cuenta')
     est_cta = models.CharField(max_length=1, choices=OPC_EST_CTA_AHO,verbose_name='Estado Cuenta')
     fec_apertura = models.DateField(null=True, blank=True,verbose_name='Fecha Apertura')

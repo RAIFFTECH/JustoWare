@@ -14,8 +14,7 @@ class TERCEROS(models.Model):
     nit_rap = models.CharField(max_length=12, blank=True, null=False, verbose_name='Nit Rápido')
     cod_ciu_exp = models.ForeignKey(
         LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_exp', null=True, blank=True, verbose_name='Ciudad Expedición Documento')
-    cod_ciu_res = models.ForeignKey(
-        LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_res', null=True, blank=True, verbose_name='Ciudad Residencia' )
+    cod_ciu_res = models.ForeignKey(LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_res', null=True, blank=True, verbose_name='Ciudad Residencia' )
     regimen = models.CharField(max_length=12, choices=OPC_REGIMEN, verbose_name='Tipo Régimen')
     fec_exp_ced = models.DateField(null=True, blank=True, verbose_name='Fecha Expedición Documento')
     tip_ter = models.CharField(max_length=12, choices=OPC_TIPTER, verbose_name='Tipo Tercero')
@@ -28,7 +27,7 @@ class TERCEROS(models.Model):
     cod_pos = models.CharField(max_length=8, null=True, verbose_name='Código Postal')
     tel_ofi = models.CharField(max_length=10, null=True, verbose_name='Teléfono Oficina')
     tel_res = models.CharField(max_length=10, null=True, verbose_name='Teléfono Residencia')
-    id_ds = models.BigIntegerField(null=True, db_index=True)
+    id_ds = models.BigIntegerField(null=True, blank=True, db_index=True)
     celular1 = models.CharField(
         max_length=10,
         validators=[validate_numeric],
@@ -39,7 +38,7 @@ class TERCEROS(models.Model):
     email = models.EmailField(verbose_name='e-mail')
     nombre = models.CharField(max_length=120, blank=True, null=False, verbose_name='Nombre')
     fec_act = models.DateField(null=True, blank=True, verbose_name='Fecha Actualización')
-    observacion = models.CharField(max_length=255, null=False, verbose_name='Observación')
+    observacion = models.CharField(max_length=255, blank=True, null=False, verbose_name='Observación')
     per_pub_exp = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Persona Expuesta PEP')
     nit_interno = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Nit Interno')
 

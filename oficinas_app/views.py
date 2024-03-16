@@ -1,58 +1,72 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.db import IntegrityError
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django import forms
 from .forms import CrearForm
 from .models import OFICINAS
 
-@login_required
-def Crear_Oficina(request):
-    if request.method == 'GET':
-        return render(request, 'Crear_Oficina.html', {'form': CrearForm})
-    else:
-        try:
-            form = CrearForm(request.POST)
-            new = form.save(commit = False)
-            new.save()
-            return render(request, 'Crear_Oficina.html',{'form': CrearForm})
-        except ValueError:
-            return render(request, 'Crear_Oficina.html', {
-                'form': CrearForm,
-                'error':'Los valores ingresados ya existen o no son válidos'
-                })
+# Para obtener todos los registros
 
 
-@login_required
-def Listar_Oficinas(request):
-    Lista = OFICINAS.objects.all()
-    return render(request, 'Lista_Oficinas.html', {'Lista': Lista})
-
-class Lista_Oficinas(ListView):
+class Lista(LoginRequiredMixin, ListView):
     model = OFICINAS
-    template_name = 'Lista_Oficinas.html'
+    form = CrearForm
+    template_name = 'lista_oficinas.html'
+
+# Para obtener todos los detalles de un registro
 
 
-@login_required
-def Oficina_Creada(request, OFICINAS_id):
-    if request.method == 'GET':
-        Oficinas = get_object_or_404(OFICINAS, pk=OFICINAS_id)
-        form = CrearForm(instance=Oficinas)
-        return render(request, 'Oficina_Creada.html',{'Oficinas': Oficinas, 'form':form})
-    else:
-        try:
-            Localidades = get_object_or_404(OFICINAS, pk=OFICINAS_id)
-            form = CrearForm(request.POST, instance = Oficinas)
-            form.save()
-            return redirect('Listar_Oficinas')
-        except ValueError:
-            return render(request, 'Oficina_Creada.html',{'Oficinas': Oficinas, 'form': form,'error':'Error al actualizar'})
-        
+class Detalles(LoginRequiredMixin, DetailView):
+    model = OFICINAS
+    form = CrearForm
+    template_name = 'detalles_oficina.html'
 
-@login_required
-def Eliminar_Oficina(request, OFICINAS_id):
-    Oficina = get_object_or_404(OFICINAS, pk=OFICINAS_id)
-    if request.method == 'POST':
-        Oficina.delete()
-        return redirect('Listar_Oficinas')
+# Para crear un nuevo registro
+
+
+class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = OFICINAS
+    form = CrearForm
+    fields = "__all__"
+    template_name = 'crear_oficina.html'
+
+    # Mensaje que se mostrará cuando se inserte el registro
+    success_message = 'Registro añadido correctamente.'
+
+    # Redirigimos a la página principal tras insertar el registro
+    def get_success_url(self):
+        return reverse('listar')
+
+# Para modificar un registro
+
+
+class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = OFICINAS
+    form = CrearForm
+    fields = "__all__"
+    template_name = 'actualizar_oficina.html'
+    # Mensaje que se mostrará cuando se actualice el registro
+    success_message = 'Registro actualizado correctamente.'
+
+    # Redireccionamos a la página principal tras actualizar el registro
+    def get_success_url(self):
+        return reverse('listar')
+
+# Para eliminar un registro
+
+
+class Eliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = OFICINAS
+    form = CrearForm
+    fields = "__all__"
+
+    # Redireccionamos a la página principal tras de eliminar el registro
+    def get_success_url(self):
+        # Mensaje que se mostrará cuando se elimine el registro
+        success_message = 'Registro eliminado correctamente.'
+        messages.success(self.request, (success_message))
+        return reverse('listar')

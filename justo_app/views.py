@@ -108,3 +108,6 @@ def calcular_nit_dv(request):
             error_message = "Por favor, ingresa un número de identificación válido."
             return render(request, 'formulario.html', {'error_message': error_message})
     return render(request, 'formulario.html')
+
+
+

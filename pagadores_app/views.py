@@ -22,7 +22,7 @@ class Detalles(LoginRequiredMixin,DetailView):
 # Para crear un nuevo pagador en la tabla pagadores
 class Crear(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     model = PAGADORES
-    form = PAGADORES
+    form = CrearForm #PAGADORES
     fields = "__all__"
     template_name = 'crear_pagador.html'
 
@@ -36,7 +36,7 @@ class Crear(LoginRequiredMixin,SuccessMessageMixin,CreateView):
 # Para modificar un pagador existente de la tabla pagadores
 class Actualizar(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
     model = PAGADORES
-    form = PAGADORES
+    form = CrearForm #PAGADORES
     fields = "__all__"
     template_name = 'actualizar_pagador.html'
     # Mensaje que se mostrará cuando se actualice el registro
@@ -49,7 +49,7 @@ class Actualizar(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
 # Para eliminar un pagador de la tabla pagadores
 class Eliminar(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = PAGADORES
-    form = PAGADORES
+    form = CrearForm #PAGADORES
     fields = "__all__"
 
     # Redireccionamos a la página principal tras de eliminar el registro

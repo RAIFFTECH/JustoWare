@@ -3,12 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-	<title>Detalles Pagadores - JustoWare</title> 
- 
+	<title>Detalles Cuenta de Ahorros - JustoWare</title> 
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
  
  {% load static %} <!-- Cargar URL raíz -->
- {% load crispy_forms_tags %}
+
 	
 </head>
  
@@ -25,28 +27,28 @@
 			</button>
 			
 			<!-- Logotipo y siglas -->
-			<a class="navbar-brand" href="lista.html"> 
-				<img alt="Agenda - Proyecto A"
-				src="{% static 'fotos/'%}Logo_JustoWare.ico" class="d-inline-block align-text-top"/>
-				<span>PA</span>
-			</a>			
- 	 		
+			<a class="navbar-brand" href="{% url 'listar_ctas_ahorros' %}">
+				<img alt="Cuentas Contables - JustoWare" style="background-color:#06153C;" src="{% static 'Iconos/JustoWare.gif'%}" width="100" height="50" class="d-inline-block align-text-center"/> 
+				<span>Cuentas de Ahorros</span>
+			</a>
+			
 			<div class="collapse navbar-collapse" id="menu_principal">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="/" id="submenu_principal" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
 							<i class="glyphicon glyphicon-time"></i>
-							Contactos</a>						
+							.</a>
 						<!-- Iniciamos principio del grupo (menú) -->
-						<ul class="dropdown-menu" aria-labelledby="submenu_principal">						
-								<li><a class="dropdown-item" href="{% url 'listar' %}">
+						<ul class="dropdown-menu" aria-labelledby="submenu_principal">
+							<li><a class="dropdown-item" href="{% url 'listar_ctas_ahorros' %}" width="30" height="30"
+									class="d-inline-block align-text-center">
 									<i class="glyphicon glyphicon-th-list"></i>
-									Listado</a>								
-								</li>
-								<li><a class="dropdown-item" href="{% url 'crear' %}">
+									Listado</a>
+							</li>
+							<li><a class="dropdown-item" href="../crear">
 									<i class="glyphicon glyphicon-plus"></i>
-									Nuevo</a>								
+									Nuevo</a>
 								</li>
 							</ul> <!-- Cierra la lista de submenús del grupo -->
 					</li> <!-- Cierra el grupo de submenús del menú principal -->							
@@ -57,7 +59,7 @@
 		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="fas fa-user"> ProyectoA</i>
+					<i class="fas fa-user"> Sesion</i>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="submenu_principal">
 					<li><a class="nav-link disabled"><i class="fa fa-asterisk"></i> 
@@ -75,21 +77,20 @@
 	</nav>  <!-- del menú principal -->  
 </div> <!-- del container fluid de la barra superior del menú -->
 
-<div>		
-
-<p><span class="txt_negrita">Código:</span> <br> {{object.oficina}}</p>
-<p><span class="txt_negrita">Nombre:</span> <br> {{object.lin_aho}}</p>
-<p><span class="txt_negrita">Ciudad:</span> <br> {{object.asociado}}</p>
-<p><span class="txt_negrita">Pagador:</span> <br> {{object.num_cta}}</p>
-<p><span class="txt_negrita">Teléfono:</span> <br> {{object.est_cta}}</p>
-<p><span class="txt_negrita">Teléfono:</span> <br> {{object.fec_apertura}}</p>
-<p><span class="txt_negrita">Teléfono:</span> <br> {{object.fec_cancela}}</p>
-<p><span class="txt_negrita">Teléfono:</span> <br> {{object.exc_tas_mil}}</p>
-<p><span class="txt_negrita">Teléfono:</span> <br> {{object.fec_ini_exc}}</p>
-
-
+<div>
+<p><span class="txt_negrita">Oficina:</span> <br> {{object.oficina}}</p>
+<p><span class="txt_negrita">Línea de Ahorro:</span> <br> {{object.lin_aho}}</p>
+<p><span class="txt_negrita">Nombre Asociado:</span> <br> {{object.asociado}}</p>
+<p><span class="txt_negrita">Número Cuenta:</span> <br> {{object.num_cta}}</p>
+<p><span class="txt_negrita">Estado Cuenta:</span> <br> {{object.est_cta}}</p>
+<p><span class="txt_negrita">Fecha Apertura:</span> <br> {{object.fec_apertura}}</p>
+<p><span class="txt_negrita">Fecha Cancelación:</span> <br> {{object.fec_cancela}}</p>
+<p><span class="txt_negrita">Exenta 4x1000?:</span> <br> {{object.exc_tas_mil}}</p>
+<p><span class="txt_negrita">Fecha Exención:</span> <br> {{object.fec_ini_exc}}</p>
+ 
 <!-- Botón para volver a la vista principal (Home) -->
-<a href="../" type="submit" class="btn btn-secondary">Volver</a>
+<a href="../" title="Volver" type="submit" class="btn btn-success"><i class="bi bi-arrow-left-square"></i> Volver</a>
+<a href="../imprime/{{object.id}}" title="Imprimir" type="button" class="btn btn-secondary"><i class="bi bi-printer-fill"></i> Imprimir</a>
 
 </div>
  

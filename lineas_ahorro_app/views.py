@@ -6,26 +6,27 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django import forms
+from .forms import CrearForm
 from .models import LINEAS_AHORRO
 
-# Para obtener todos los registros de la tabla de pagadores
+# Para obtener todos los registros
 class Lista(LoginRequiredMixin, ListView):
     model = LINEAS_AHORRO
-    form = LINEAS_AHORRO
-    template_name = 'lista.html'
+    form = CrearForm
+    template_name = 'lista_lin_aho.html'
 
-# Para obtener todos los campos de un registro de la tabla pagadores
+# Para obtener todos los detalles de un registro 
 class Detalles(LoginRequiredMixin, DetailView):
     model = LINEAS_AHORRO
-    form = LINEAS_AHORRO
-    template_name = 'detalles1.html'
+    form = CrearForm
+    template_name = 'detalles_lin_aho.html'
 
-# Para crear un nuevo pagador en la tabla pagadores
+# Para crear un nuevo registro
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = LINEAS_AHORRO
-    form = LINEAS_AHORRO
+    form = CrearForm
     fields = "__all__"
-    template_name = 'crear.html'
+    template_name = 'crear_lin_aho.html'
 
     # Mensaje que se mostrará cuando se inserte el registro
     success_message = 'Registro añadido correctamente.'
@@ -34,12 +35,12 @@ class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_success_url(self):
         return reverse('listar')
 
-# Para modificar un pagador existente de la tabla pagadores
+# Para modificar un registro
 class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = LINEAS_AHORRO
-    form = LINEAS_AHORRO
+    form = CrearForm
     fields = "__all__"
-    template_name = 'actualizar.html'
+    template_name = 'actualizar_lin_aho.html'
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Registro actualizado correctamente.'
 
@@ -47,10 +48,10 @@ class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         return reverse('listar')
 
-# Para eliminar un pagador de la tabla pagadores
+# Para eliminar un registro
 class Eliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = LINEAS_AHORRO
-    form = LINEAS_AHORRO
+    form = CrearForm
     fields = "__all__"
 
     # Redireccionamos a la página principal tras de eliminar el registro

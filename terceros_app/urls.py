@@ -1,10 +1,32 @@
+from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
-from . import views
+from .views import Crear, Lista, Detalles, Actualizar, Eliminar, ImprimirPDF, ImprimePDF, ExportarView
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('crear/', views.Crear_Tercero, name= 'Crear_Tercero'),
-    path('listar/', views.Listar_Terceros, name='Listar_Terceros'),
-    path('lista/<int:TERCEROS_id>/', views.Tercero_Creado, name='Tercero_Creado'),
-    path('elimina/<int:TERCEROS_id>/', views.Eliminar_Tercero, name='Eliminar_Tercero'),
+    # Para mostrar formulario de alta de nuevo registro
+    path('crear/', Crear.as_view(), name='crear'),
+
+    # Para mostrar todos los registros en una tabla
+    path('lista/', Lista.as_view(), name='listar_terceros'),
+
+    # Para mostrar una página con el detalle del registro
+    path('lista/detalles/<int:pk>', Detalles.as_view(), name='detalles'),
+
+    # Para actualizar un registro
+    path('lista/actualizar/<int:pk>', Actualizar.as_view(), name='actualizar'),
+
+    # Para eliminar un registro
+    path('lista/eliminar/<int:pk>', Eliminar.as_view(), name='eliminar'),
+
+    # Para imprimir un registro
+    path('lista/imprime/<int:pk>', ImprimePDF.as_view(), name='imprime'),
+
+    # Para imprimir todos los registros
+    path('lista/imprimir/', ImprimirPDF.as_view(), name='imprimir'),
+
+    # Para exportar los registros
+    path('exportar/', ExportarView.as_view(), name='exportar'),
+
 ]

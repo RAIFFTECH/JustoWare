@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
 	<title>Crear Cuenta Contable - JustoWare</title> 
  
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+ 
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
  
  {% load static %} <!-- Cargar URL raíz -->
@@ -26,11 +28,9 @@
 			</button>
 			
 			<!-- Logotipo y siglas -->
-			<a class="navbar-brand" href="../lista">
-				<img alt="Cuentas Contables - JustoWare" style="background-color:#fcf9f9;"
-					src="{% static 'fotos/'%}Logo_justoware_blue.png" width="60" height="50"
-					class="d-inline-block align-text-center" />
-				<span>JustoWare</span>
+			<a class="navbar-brand" href="{% url 'listar_cuenta' %}">
+				<img alt="Cuentas Contables - JustoWare" style="background-color:#06153C;" src="{% static 'Iconos/JustoWare.gif'%}" width="100" height="50" class="d-inline-block align-text-center"/> 
+				<span>Cuentas Contables</span>
 			</a>
 			
 			<div class="collapse navbar-collapse" id="menu_principal">
@@ -39,17 +39,17 @@
 						<a class="nav-link dropdown-toggle" href="/" id="submenu_principal" role="button" data-bs-toggle="dropdown"
 							aria-expanded="false">
 							<i class="glyphicon glyphicon-time"></i>
-							Cuentas Contables</a>
+							.</a>
 						<!-- Iniciamos principio del grupo (menú) -->
 						<ul class="dropdown-menu" aria-labelledby="submenu_principal">
-							<li><a class="dropdown-item" href="{% url 'listar' %}" width="30" height="30"
+							<li><a class="dropdown-item" href="{% url 'listar_cuenta' %}" width="30" height="30"
 									class="d-inline-block align-text-center">
 									<i class="glyphicon glyphicon-th-list"></i>
 									Listado</a>
 							</li>
-							<li><a class="dropdown-item" href="{% url 'crear' %}">
+							<li><a class="dropdown-item" href="../crear">
 									<i class="glyphicon glyphicon-plus"></i>
-									Nueva</a>
+									Nuevo</a>
 								</li>
 							</ul> <!-- Cierra la lista de submenús del grupo -->
 					</li> <!-- Cierra el grupo de submenús del menú principal -->							
@@ -59,8 +59,8 @@
 	<div class="collapse navbar-collapse" id="menu_principal">
 		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="listar" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="fas fa-user"> ProyectoA</i>
+				<a class="nav-link dropdown-toggle" href="{% url 'listar_cuenta' %}" id="submenu_principal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fas fa-user"> Sesion</i>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="submenu_principal">
 					<li><a class="nav-link disabled"><i class="fa fa-asterisk"></i> 
@@ -86,8 +86,8 @@
   {{form|crispy}}
  
   
-  <button type="submit" class="btn btn-success">Guardar</button>
-  <a href="{% url 'listar' %}" type="submit" class="btn btn-secondary">Cancelar</a>
+  <button type="submit" title="Guardar" class="btn btn-success"><i class="bi bi-floppy"></i> Guardar</button>
+  <a href="../lista" title="Cancelar" type="submit" class="btn btn-danger"><i class="bi bi-x-square"></i> Cancelar</a>
  
 </form>
 

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +52,13 @@ INSTALLED_APPS = [
     'asociados_app',
     'lineas_ahorro_app',
     'cuentas_app',
+    'centrocostos_app',
+    'destino_credito_app',
+    'documentos_app',
+    'lineas_credito_app',
+    'tasas_lin_aho_app',
+    'retefuente_ahorros_app',
+    
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -146,6 +153,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Define la ruta de la carpeta 'assets' dentro del directorio principal
+ASSETS_DIR = os.path.join(BASE_DIR, 'assets')
+STATICFILES_DIRS = [
+    ASSETS_DIR,
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -21,12 +21,6 @@ from justo_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Inicio, name='Inicio'),
-    # path('Registrar_Usuario/', views.Registrar_Usuario, name='Registrar_Usuario'),
-    # path('Iniciar_Sesion/', views.Iniciar_Sesion, name='Iniciar_Sesion'),
-    # path('Cerrar_Sesion/', views.Cerrar_Sesion, name='Cerrar_Sesion'),
-    # path('JustoAdm/', views.JustoAdm, name='JustoAdm'),
-    # path('num_let', views.convertir_numero_a_letras, name='Num_Let'),
-    # path('dv', views.calcular_nit_dv, name='Calcula_DV'),
     path('clientes/', include('clientes_app.urls')),
     path('justo/', include('justo_app.urls')),
     path('localidades/', include('localidades_app.urls')),
@@ -36,4 +30,11 @@ urlpatterns = [
     path('cta_ahorro/', include('ctas_ahorros_app.urls')),
     path('linea_ahorro/', include('lineas_ahorro_app.urls')),
     path('cuentas/', include('cuentas_app.urls')),
+    path('centrocostos/', include('centrocostos_app.urls')),
+    path('documentos/', include('documentos_app.urls')),
+    path('destino_creditos/', include('destino_credito_app.urls')),
+    path('linea_creditos/', include('lineas_credito_app.urls')),
+    path('tasa_lin_aho/', include('tasas_lin_aho_app.urls')),
+    path('retefuente_ahorros/', include('retefuente_ahorros_app.urls')),
+
 ]
