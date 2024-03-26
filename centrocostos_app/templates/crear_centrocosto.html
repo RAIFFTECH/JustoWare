@@ -11,8 +11,7 @@
  
  {% load static %} <!-- Cargar URL raíz -->
  
- {% load crispy_forms_tags %}	
-
+{% load crispy_forms_tags %}
 </head>
  
 <body>
@@ -85,7 +84,6 @@
   {% csrf_token %}
   {{form|crispy}}
  
-  
   <button type="submit" title="Guardar" class="btn btn-success"><i class="bi bi-floppy"></i> Guardar</button>
   <a href="../lista" title="Cancelar" type="submit" class="btn btn-danger"><i class="bi bi-x-square"></i> Cancelar</a>
  
