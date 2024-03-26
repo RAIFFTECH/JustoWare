@@ -7,9 +7,9 @@
     <div class="col-lg-4 mx-auto">
         <div class="auth-form-light text-center p-5">
             <div class="brand-logo">
-                <img src="{% static 'Iconos/logo_blanco.svg'%}">
+                <img style="background-color:#06153C;" src="{% static 'Iconos/JustoWare.gif'%}" width="400" height="100" class="d-inline-block align-text-center" />
             </div>
-            <h6 class="font-weight-light">Completa los datos pra registrarte</h6>
+            <h6 class="font-weight-light">Completa los datos para registrarte</h6>
             <form class="pt-3">
                 <div class="form-group">
                     <input type="text" class="form-control form-control-lg" id="exampleInputUsername1"
@@ -32,7 +32,7 @@
                 </div>
                 <div class="mt-3">
                     <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-                       href="../../index.html">Registrarse</a>
+                       href="{% url 'Registrar_Usuario' %}">Registrarse</a>
                 </div>
                 <div class="text-center mt-4 font-weight-light"> ¿Ya tiene una cuenta? <a
                         href="{% url 'Iniciar_Sesion' %}" class="text-primary">Iniciar sesión</a>

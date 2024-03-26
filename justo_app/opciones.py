@@ -197,3 +197,16 @@ OPC_TIP_CTA = (
     ('C', 'Cuenta'),
     ('A', 'Auxiliar')
 )
+
+OPC_TIP_MOV_AHO = (
+    ('SALINI','Saldo Inicial Justo'),
+    ('DEPOSI','Depósito'),
+    ('INTCTA','Interés Cuenta'),
+    ('INTCDA','Interés Cdat'),
+    ('CANJE','Canje por Confirmar'),
+    ('CAN_OK','Canje Confirmado'),
+    ('RETIRO','Retiro'),
+    ('RETFUE','Rete Fuente'),
+    ('RF_CDA','Rete Fuente Cdat'),
+    ('CH_DEV','Cheque Devuelto')
+)

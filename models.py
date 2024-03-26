@@ -927,8 +927,8 @@ class CREDITOS(models.Model):
 
 class CAMBIOS_CRE(models.Model):
     id = models.AutoField(primary_key=True)
-    det_pro =  models.ForeignKey(DETALLE_PROD, on_delete=models.CASCADE,null=False,default = None)
-    tip_cam =  models.CharField(max_length=1,null = True,choices=OPC_CAMBIOS_CRE)
+    det_pro = models.ForeignKey(DETALLE_PROD, on_delete=models.CASCADE,null=False,default = None)
+    tip_cam = models.CharField(max_length=1,null = True,choices=OPC_CAMBIOS_CRE)
     capital = models.FloatField(null=True,blank=True)
     int_cor = models.FloatField(null=True,blank=True)
     int_mor = models.FloatField(null=True,blank=True)

@@ -15,7 +15,6 @@ class CTA_CDAT_LIQ(models.Model):
     Val_ret_nue = models.FloatField(null=True, blank=True, verbose_name='Valor Retefuente Nueva')
     aplicado = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Aplicado?')
     docto = models.ForeignKey(HECHO_ECONO, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Número Documento')
-    aplicado = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Aplicado?')
 
     class Meta:
         unique_together = [['cta_aho', 'cta_amp', 'fecha', 'tip_liq']]

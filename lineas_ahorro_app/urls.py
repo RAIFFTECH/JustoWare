@@ -9,7 +9,7 @@ urlpatterns = [
     path('crear/', Crear.as_view(), name='crear'),
 
     # Para mostrar todos los registros en una tabla
-    path('lista/', Lista.as_view(), name='listar'),
+    path('lista/', Lista.as_view(), name='listar_lin_aho'),
 
     # Para mostrar una página con el detalle del registro
     path('lista/detalles/<int:pk>', Detalles.as_view(), name='detalles'),
