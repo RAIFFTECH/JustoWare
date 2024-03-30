@@ -157,6 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTH_USER_MODEL = 'tu_app.UsuarioPersonalizado'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -189,3 +190,10 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.example.com'  # Configura esto con tu servidor SMTP
+# EMAIL_PORT = 587  # Puerto del servidor SMTP
+# EMAIL_USE_TLS = True  # Usar TLS para cifrar la conexión
+# # Correo electrónico desde el que se enviarán los correos
+# EMAIL_HOST_USER = 'tu_correo@example.com'
+# EMAIL_HOST_PASSWORD = 'tu_contraseña'  # Contraseña del correo electrónico

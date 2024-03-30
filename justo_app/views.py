@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 # from django.contrib.auth import password_reset, password_reset_done,password_reset_confirm, password_reset_complete
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 import inflect
 from num2words import num2words
 from clientes_app.models import CLIENTES
+from .forms import CustomUserCreationForm
 
 CLIENTE_GLOBAL = 'este es una prueba'
 OFICINA_GLOBAL = ''
@@ -22,25 +24,29 @@ def Inicio(request):
 
 def Registrar_Usuario(request):
     if request.method == 'GET':
-        return render(request, 'Registrar_Usuario.html', {
-            'form': UserCreationForm
+        return render(request, 'Registrar_Usuario1.html', {
+            'form': CustomUserCreationForm
         })
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
                 usuario = User.objects.create_user(
-                    username=request.POST['username'], password=request.POST['password1'])
+                    username=request.POST['username'], password=request.POST['password1'],
+                    first_name=request.POST['first_name'], last_name=request.POST['last_name'], email=request.POST['email'])
                 usuario.save()
-                # user = authenticate(username=usuario.clean_fields['username'],password=usuario.clean_fields['password1'])
+                # Obtiene el grupo deseado
+                grupo = Group.objects.get(name='Invitados')
+                # Asigna el usuario al grupo
+                usuario.groups.add(grupo)  
                 login(request, usuario)
                 return redirect('Inicio')
             except IntegrityError:
-                return render(request, 'Registrar_Usuario.html', {
-                    'form': UserCreationForm,
+                return render(request, 'Registrar_Usuario1.html', {
+                    'form': CustomUserCreationForm,
                     'error': 'El Usuario ya existe'
                 })
-        return render(request, 'Registrar_Usuario.html', {
-            'form': UserCreationForm,
+        return render(request, 'Registrar_Usuario1.html', {
+            'form': CustomUserCreationForm,
             'error': 'Las Contraseñas no coinciden'
         })
     
@@ -74,7 +80,7 @@ def JustoAdm(request):
 
 
 def Restablecer_Contraseña(request):
-    return "hola mundo"
+    return render(request, "hola mundo")
 
 
 def convertir_numero_a_letras(request):

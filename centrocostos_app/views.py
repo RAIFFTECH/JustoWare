@@ -37,6 +37,10 @@ class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = CENTROCOSTOS
     form = CrearForm
     fields = '__all__'
+    # widgets = {'oficina': forms.TextInput(attrs={'class': 'form-control rounded-pill'}),
+    #            'codigo': forms.NumberInput(attrs={'class': 'form-control rounded-pill'}),
+    #            'centro_costo': forms.TextInput(attrs={'class': 'form-control rounded-pill'})
+    #            }
     template_name = 'crear_centrocosto.html'
 
     # Mensaje que se mostrará cuando se inserte el registro
@@ -73,7 +77,7 @@ class Eliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return reverse('listar_centrocosto')
 
 # Para imprimir los registros
-class ImprimirPDF(View):
+class ImprimirPDF(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         # Recupera los datos de la base de datos
         # Asegúrate de adaptar esto a tu modelo y consulta específicos
@@ -125,7 +129,7 @@ class ImprimirPDF(View):
         return response
 
 # Para imprimir un registro
-class ImprimePDF(View):
+class ImprimePDF(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         # Recupera los datos de la base de datos
         # Asegúrate de adaptar esto a tu modelo y consulta específicos
@@ -154,7 +158,7 @@ class ImprimePDF(View):
         return response
 
 
-class ExportarView(View):
+class ExportarView(LoginRequiredMixin, View):
     template_name = 'exportar.html'
 
     def get(self, request, *args, **kwargs):

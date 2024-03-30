@@ -1,5 +1,15 @@
 OPC_BOOL = [('S', 'Si'), ('N', 'No')]
 
+CLASE_COOP = (
+    ('AS', 'Asociaciones Mutuales'),
+    ('TA', 'Trabajo Asociado'),
+    ('EAYC', 'Especializada de Ahorro Y Crédito'),
+    ('ESSA', 'Especializada sin Sección de Ahorros'),
+    ('FE', 'Fondo de Empleados'),
+    ('ISSA', 'Integral Sin Sección de Ahorros'),
+    ('MASSA', 'Multi Activa Sin Sección de Ahorros'),
+)
+
 OPC_CLASEDOC = (
     ('C', 'Cédula de Ciudadanía'),
     ('T', 'Tarjeta de Identidad'),
@@ -140,6 +150,7 @@ OPC_CRE_TERMINO = (
 OPC_CRE_FOR_PAG = (
     ('P', 'Personal'),
     ('L', 'Libranza'),
+    ('T', 'Transferencia'),
 )
 
 OPC_CRE_EST_JUR = (
@@ -173,17 +184,17 @@ OPC_EST_CRE = (
 )
 
 OPC_MODALIDAD_CRE = (
-    ('A', 'Admisible'),
-    ('C', 'Comercial'),
-    ('M', 'MicroCrédito'),
-    ('V', 'Vivienda')
+    ('CCCL', 'Consumo Con Libranza'),
+    ('CCSL', 'Consumo Sin Libranza'),
+    ('CCPJ', 'Comercial Jurídica'),
+    ('CCPN', 'Comercial Natural'),
+    ('CMIC', 'MicroCrédito'),
 )
 
 OPC_GARANTIA = (
-    ('A', 'Admisible'),
-    ('H', 'Hipotecaria'),
-    ('D', 'Deudor Solidario'),
-    ('O', 'Otros')
+    ('1', 'No Idónea'),
+    ('2', 'Hipotecaria'),
+    ('15', 'Sin Garantias'),
 )
 
 OPC_ESTADO_ANTEIA = (
@@ -196,6 +207,14 @@ OPC_ESTADO_ANTEIA = (
 OPC_TIP_CTA = (
     ('C', 'Cuenta'),
     ('A', 'Auxiliar')
+)
+
+OPC_NOV_CTA_AHO = (
+    ('A', 'Activada'),
+    ('I', 'Inactivada'),
+    ('C', 'Cancelada'),
+    ('E', 'Embargada'),
+    ('S', 'Inrtervenida'),
 )
 
 OPC_TIP_MOV_AHO = (

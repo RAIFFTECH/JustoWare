@@ -2,15 +2,15 @@ from django.db import models
 import re
 from django.core.exceptions import ValidationError
 from justo_app.models import validate_numeric
-from justo_app.opciones import OPC_BOOL
+from justo_app.opciones import OPC_BOOL, CLASE_COOP
 
 class CLIENTES(models.Model):
-    id = models.SmallAutoField(primary_key=True)
     codigo = models.CharField(max_length=1, null=False, verbose_name='Código' )
     doc_ide = models.CharField(max_length=12, validators=[validate_numeric], help_text='El documento de identidad debe ser numérico.', verbose_name='Nit')
     dv = models.CharField(max_length=1, blank=True, null=True, verbose_name='DV')
     sigla = models.CharField(max_length=36, verbose_name='Sigla')
     nombre = models.CharField(max_length=120, verbose_name='Nombre')
+    clase_coop = models.CharField(max_length=8,choices=CLASE_COOP,default = 'EAYC', verbose_name='Clase Cooperativa')
     direccion = models.CharField(max_length=128, blank=True, null=True, verbose_name='Dirección')
     telefono = models.CharField(max_length=12, validators=[
                                 validate_numeric], help_text='El número de teléfono debe tener solo dígitos numéricos.', blank=True, null=True, verbose_name='Teléfono')

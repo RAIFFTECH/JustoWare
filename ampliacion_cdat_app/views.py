@@ -25,7 +25,6 @@ class Lista(LoginRequiredMixin, ListView):
     template_name = 'lista_ampliacion_cdats.html'
     # ordering = ['cliente','per_con','cod_cta']
 
-
 # Para obtener todos los detalles de un registro
 class Detalles(LoginRequiredMixin, DetailView):
     model = CTA_CDAT_AMP
