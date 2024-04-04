@@ -32,6 +32,8 @@ class Detalles(LoginRequiredMixin, DetailView):
     form = CrearForm
     template_name = 'detalles_centrocosto.html'
 
+
+
 # Para crear un nuevo registro
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = CENTROCOSTOS

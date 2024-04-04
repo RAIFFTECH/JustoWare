@@ -184,6 +184,9 @@ STATICFILES_DIRS = [
     ASSETS_DIR,
 ]
 
+# Cerrar la sesión automaticamente después de determinado tiempo
+# SESSION_COOKIE_AGE = 60
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

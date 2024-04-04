@@ -3,21 +3,21 @@ from clientes_app.models import CLIENTES
 # Create your models here.
 
 class IMP_CON_CRE(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE)
-    cod_imp = models.CharField(max_length=2, null=True)
-    descripcion = models.CharField(max_length=40, null=True)
-    kcta_pte_cap = models.CharField(max_length=10, null=True)
-    kcta_pro_gen_adi = models.CharField(max_length=10, null=True)
-    kcta_pro_gen = models.CharField(max_length=10, null=True)
-    kcta_gas_pro_gen = models.CharField(max_length=10, null=True)
-    kcta_rec_pro_gen = models.CharField(max_length=10, null=True)
-    kcta_gas_pro_ind = models.CharField(max_length=10, null=True)
-    kcta_rec_pro_ind = models.CharField(max_length=10, null=True)
-    icta_des_int_pp = models.CharField(max_length=10, null=True)
-    kcta_pte_int = models.CharField(max_length=10, null=True)
-    cta_val = models.CharField(max_length=10, null=True)
-    kcta_ingreso = models.CharField(max_length=10, null=True)
-    orden_i = models.CharField(max_length=10, null=True)
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cod_imp = models.CharField(max_length=2, null=True, verbose_name='Código')
+    descripcion = models.CharField(max_length=40, null=True, verbose_name='Descripción')
+    kpte_cap = models.CharField(max_length=10, null=True, verbose_name='Cuenta Puente Capital')
+    kdet_gen_adi = models.CharField(max_length=10, null=True, verbose_name='Provisión General Adicional')
+    kdet_gen = models.CharField(max_length=10, null=True, verbose_name='Provisión General')
+    kdet_gen_gas = models.CharField(max_length=10, null=True, verbose_name='Cuenta Gasto Povisión')
+    kdet_gen_rec = models.CharField(max_length=10, null=True, verbose_name='Cuenta Provisión Recuperada')
+    kdet_ind_gas= models.CharField(max_length=10, null=True, verbose_name='Cuenta Provisión Individual Gasto')
+    kdet_ind_rec = models.CharField(max_length=10, null=True, verbose_name='Cuenta Provisión Individual Recuperada')
+    kdpp_ic = models.CharField(max_length=10, null=True, verbose_name='Cuenta Descuento Pronto Pago IC' )
+    kpte_ic = models.CharField(max_length=10, null=True, verbose_name='Cuenta Puente IC')
+    cta_val = models.CharField(max_length=10, null=True, verbose_name='Cuenta Valorización')
+    kcta_ingreso = models.CharField(max_length=10, null=True, verbose_name='Cuenta Ingreso')
+    kic_orden_i = models.CharField(max_length=10, null=True, verbose_name='Cuenta de Orden IC')
 
     class Meta:
         unique_together = [['cliente', 'cod_imp']]

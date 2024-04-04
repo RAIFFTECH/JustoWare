@@ -52,7 +52,9 @@ class TERCEROS(models.Model):
 
     class Meta:
         unique_together = [['cliente', 'cla_doc', 'doc_ide']]
+        # indexes = ['cliente', 'nombre']
         db_table = 'terceros'
+
     
     def __str__(self):
         return self.doc_ide + ' ' + self.nombre
