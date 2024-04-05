@@ -45,7 +45,7 @@
                 </div>
                 <div class="nav-profile-text">
                   {% if user.is_authenticated %}
-                  <p>Bienvenid@, {{ user.first_name }} {{ user.last_name }}</p>
+                  <p class="mb-1 text-black">Bienvenid@, {{ user.first_name }} {{ user.last_name }}</p>
                   <!-- <p class="mb-1 text-black">Usuario</p> -->
                   {% else %}
                   <p>¡ Iniciar Sesión !</p>
@@ -106,12 +106,12 @@
               </li>
               <li class="nav-item">
                 {% if user.is_authenticated %}
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="true" aria-controls="ui-basic1">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
                   <span class="menu-title">Aportes</span>
                   <i class="menu-arrow"></i>
                   <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                 </a>
-                <div class="collapse" id="ui-basic1">
+                <div class="collapse" id="ui-basic">
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'listar_aporte' %}">Movimiento de Aportes</a>
@@ -120,12 +120,12 @@
                       <a class="nav-link" href="{% url 'Iniciar_Sesion' %}">Aportes a una Fecha</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced1" aria-expanded="false" aria-controls="ui-advanced1">
+                      <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced" aria-expanded="true" aria-controls="ui-advanced">
                         <span class="menu-title">Listado Aportes</span>
                         <i class="menu-arrow"></i>
                         <i class="mdi mdi-cards-variant menu-icon"></i>
                       </a>
-                      <div class="collapse multi-collapse show" id="ui-advanced1">
+                      <div class="collapse multi-collapse show" id="ui-advanced">
                         <ul class="nav flex-column sub-menu">
                           <li class="nav-item">
                             <a class="nav-link" href="{% url 'listar_ctas_ahorros' %}">Cuentas de Ahorro</a>
@@ -149,12 +149,12 @@
               </li>
               <li class="nav-item">
                 {% if user.is_authenticated %}
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="true" aria-controls="ui-basic1">
                   <span class="menu-title">Ahorros</span>
                   <i class="menu-arrow"></i>
                   <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                 </a>
-                <div class="collapse" id="ui-basic">
+                <div class="collapse" id="ui-basic1">
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'listar_ctas_ahorros' %}">Cuentas de Ahorro</a>
@@ -187,12 +187,12 @@
                       </div>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced4" aria-expanded="false" aria-controls="ui-advanced4">
+                      <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced1" aria-expanded="false" aria-controls="ui-advanced1">
                         <span class="menu-title">Cdats</span>
                         <i class="menu-arrow"></i>
                         <i class="mdi mdi-cards-variant menu-icon"></i>
                       </a>
-                      <div class="collapse multi-collapse show" id="ui-advanced4">
+                      <div class="collapse multi-collapse show" id="ui-advanced1">
                         <ul class="nav flex-column sub-menu">
                           <li class="nav-item">
                             <a class="nav-link" href="{% url 'listar_cdats' %}">Cdat's</a>
@@ -314,6 +314,68 @@
                         <i class="mdi mdi-cards-variant menu-icon"></i>
                       </a>
                       <div class="collapse multi-collapse show" id="ui-advanced3">
+                        <ul class="nav flex-column sub-menu">
+                          <li class="nav-item">
+                            <a class="nav-link" href="cta_ahorro/lista">Créditos Desembolsados</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="linea_ahorro/lista">Cartera a una Fecha</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="linea_ahorro/lista">Reclasificación de Cartera</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="linea_ahorro/lista">Categorias de Cartera</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="linea_ahorro/lista">Destino de Créditos</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Iniciar_Sesion' %}">Codificación Contable</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                {% else %}
+                <li class="nav-item">
+                  <a href="{% url 'Iniciar_Sesion' %}" class="nav-link"></a>
+                </li>
+                {% endif %}
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic4" aria-expanded="true" aria-controls="ui-basic4">
+                  <span class="menu-title">Configuración</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'listar_terceros' %}">Crear Tercero</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'listar_centrocosto' %}">Crear Asociado</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'listar_linea_credito' %}">Líneas de Crédito</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'listar_destino_credito' %}">Destino de Créditos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'Iniciar_Sesion' %}">Categorias de Créditos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-bs-toggle="collapse" href="#ui-advanced4" aria-expanded="false"
+                        aria-controls="ui-advanced4">
+                        <span class="menu-title">Listado de Créditos</span>
+                        <i class="menu-arrow"></i>
+                        <i class="mdi mdi-cards-variant menu-icon"></i>
+                      </a>
+                      <div class="collapse multi-collapse show" id="ui-advanced4">
                         <ul class="nav flex-column sub-menu">
                           <li class="nav-item">
                             <a class="nav-link" href="cta_ahorro/lista">Créditos Desembolsados</a>

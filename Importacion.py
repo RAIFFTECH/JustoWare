@@ -1,11 +1,7 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Justo_proy.settings')
-
-# Initialize django application
 import django
 django.setup()
-
-# Do what you want to debug and set breakpoints
 import csv
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -15,6 +11,13 @@ from django.db.models.query import QuerySet
 from django.db.models import F, Sum, Case, When, Value, FloatField, CharField, IntegerField
 from django.db.models.functions import Coalesce
 from operator import itemgetter
+from dateutil.relativedelta import relativedelta
+from django.db.models import Q
+from datetime import timedelta
+from decimal import Decimal, ROUND_HALF_UP
+
+def gomonth(fecha, meses):
+    return fecha + relativedelta(months=meses)
 
 def asignar_fecha(fecha_str, formato='%m/%d/%Y'):
     try:
@@ -69,6 +72,75 @@ def inicio():
             DocZep.descripcion =row['c00descrip']
             DocZep.save()
     print('         ',datetime.now())
+
+def tablas_de_referencia():
+    Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
+    justo.PE_CALIF_RANGO.objects.filter(cliente = Cliente).delete()
+    justo.PE_PI_CALIF.objects.filter(cliente = Cliente).delete()
+    justo.PE_PDI_RANGO.objects.filter(cliente = Cliente).delete()
+    justo.PE_MODE_REFE.objects.filter(cliente = Cliente).delete()
+#  se busca la Calificacion a partir de un Puntaje Cartera de Consumo Con Libranza Entra el Puntaje y sale la Calificacion
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='A',pi_puntaje = 0.0174)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='B',pi_puntaje = 0.0337)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='C',pi_puntaje = 0.0479)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='D',pi_puntaje = 0.0812)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='E',pi_puntaje = 1.0)
+#  se busca la Calificacion a partir de un Puntaje Cartera de Consumo Sin Libranza  Entra el Puntaje y sale la Calificacion
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='A',pi_puntaje = 0.0559)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='B',pi_puntaje = 0.1066)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='C',pi_puntaje = 0.2199)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='D',pi_puntaje = 0.3690)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='E',pi_puntaje = 1)
+#  se busca la Calificacion a partir de un Puntaje Cartera Comercial Persona Natural Entra el Puntaje y sale la Calificacion
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPN',calificacion='A',pi_puntaje = 0.2340)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPN',calificacion='B',pi_puntaje = 0.4291)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPN',calificacion='C',pi_puntaje = 0.5905)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPN',calificacion='D',pi_puntaje = 0.7571)
+    justo.PE_CALIF_RANGO.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPN',calificacion='E',pi_puntaje = 1)
+
+#  Cartera de Consumo Con Libranza Entra le Calificacion y sale la Porbabilidad de Incumplimieno PI en porcentaje
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='A',pi_porcent = 0.50)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='B',pi_porcent = 0.60)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='C',pi_porcent = 4.41)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='D',pi_porcent = 4.48)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='E',pi_porcent = 22.73)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCCL',calificacion='F',pi_porcent = 100.0)
+#  Calificacion segun Puntaje  Cartera de Consumo Sin Libranza
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='A',pi_porcent = 1.50)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='B',pi_porcent = 5.95)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='C',pi_porcent = 13.82)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='D',pi_porcent = 32.77)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='E',pi_porcent= 41.71)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCSL',calificacion='F',pi_porcent = 100.0)
+#  Calificacion segun Puntaje  Cartera Comercial Persona Natural
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPJ',calificacion='A',pi_porcent = 0.37)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPJ',calificacion='B',pi_porcent = 6.21)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPJ',calificacion='C',pi_porcent = 12.43)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPJ',calificacion='D',pi_porcent = 21.05)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPJ',calificacion='E',pi_porcent = 58.97)
+    justo.PE_PI_CALIF.objects.create(cliente=Cliente,clase_coop='EAYC',modalidad = 'CCPJ',calificacion='F',pi_porcent = 100.0)
+
+#  Determina la PDI a partir de el tipo de garantia y los dias de incumplimiento
+    justo.PE_PDI_RANGO.objects.create(cliente=Cliente,garantia='1',pdi_0=60.0,dias_inc_1=210,pdi_1=70.0,dias_inc_2=420,pdi_2=100)
+    justo.PE_PDI_RANGO.objects.create(cliente=Cliente,garantia='2',pdi_0=40.0,dias_inc_1=360,pdi_1=70.0,dias_inc_2=720,pdi_2=100)
+    justo.PE_PDI_RANGO.objects.create(cliente=Cliente,garantia='15',pdi_0=75.0,dias_inc_1=30,pdi_1=85.0,dias_inc_2=90,pdi_2=100)
+
+#  Se introducen los coeficientes de los modelos
+    justo.PE_MODE_REFE.objects.create(cliente = Cliente,modalidad = 'CCCL',constante = -2.250040,coe_ea = -0.84440,coe_ap = -1.05730,coe_tc = 1.07150,coe_fe = 0.01390,
+        coe_esim = 0.41870,coe_famor = 0.53130, coe_valcuota = -0.5536,coe_valpres = -0.3662,coe_ocoop = 0.0586,coe_fonaho = -0.5981,coe_coopcdat = -1.3854,
+        coe_fondplazo = -0.5893,coe_antipre1 = 0.7833,coe_mora15 = 0.8526,coe_mora1230 = 1.4445,coe_mora1260 = 1.3892,coe_mora2430 = 0.2823,
+        coe_mora2460 = 0.7515,coe_sinmora = -0.6632,coe_mortrim = 1.2362,coe_reest = 0.0,coe_cuenaho = 0.0,coe_cdat = 0.0,coe_per = 0,coe_entidad1 = 0.0,coe_antipre2 = 0.0,
+        coe_vin2 = 0.0,coe_mora3615 = 0.0,coe_entidad2 = 0.0,coe_plazol = 0.0,coe_salpres = 0.0,coe_m1mora30 = 0.0,coe_m2mora30 = 0.0,coe_m1mora30m3 = 0.0,coe_amor = 0.0,
+        coe_nodo4 = 0.0,coe_nodo5 = 0.0,coe_nodo7 = 0.0,coe_nodo8 = 0.0,coe_nodo9 = 0.0,coe_nodo1 = 0.0,coe_mora3660 = 0)
+    justo.PE_MODE_REFE.objects.create(cliente = Cliente,modalidad = 'CCSL',constante = -1.8017,coe_ea = -0.3758,coe_ap = 0.0,coe_tc = 0.0,coe_fe = 0.0,
+        coe_esim = 0.0,coe_famor = 0.0, coe_valcuota = -0.0,coe_valpres = -0.0,coe_ocoop = 0.0,coe_fonaho = -0.0,coe_coopcdat = -0.0,
+        coe_fondplazo = -0.0,coe_antipre1 = 0.1271,coe_mora15 = 0.0,coe_mora1230 = 0.7877,coe_mora1260 = 2.5651,coe_mora2430 = 0.696,
+        coe_mora2460 = 0.696,coe_sinmora = -0.0,coe_mortrim = 0.0,coe_reest = 0.4934,coe_cuenaho = -0.387,coe_cdat = 1.0786,coe_per = -0.0167,coe_entidad1 = 0.3204,coe_antipre2 = -0.3912,
+        coe_vin2 = -0.4892,coe_mora3615 = 0.81140,coe_entidad2 = 0.0,coe_plazol = 0.0,coe_salpres = -0.8419,coe_m1mora30 = 0.0,coe_m2mora30 = 0.0,coe_m1mora30m3 = 0.0,coe_amor = 0.0,
+        coe_nodo4 = 0.0,coe_nodo5 = 0.0,coe_nodo7 = 0.0,coe_nodo8 = 0.0,coe_nodo9 = 0.0,coe_nodo1 = 0.0,coe_mora3660 = 0)
+
+
+    return
 
 def terceros():
     print('Terceros....  ',datetime.now())
@@ -147,9 +219,7 @@ def socios():
             if Tercero == None:
                 print('No Hay Tercero ',row['s01nit'])
                 continue
-            Socio = justo.ASOCIADOS.objects.filter(
-                    oficina=Oficina,
-                    cod_aso = row['s01codsoc']).first()
+            Socio = justo.ASOCIADOS.objects.filter(oficina=Oficina,cod_aso = row['s01codsoc']).first()
             if Socio == None:
                 Socio = justo.ASOCIADOS.objects.create(
                         oficina = Oficina,
@@ -171,7 +241,7 @@ def socios():
             Socio.niv_est  = row['s01nivest'][:1]
             Socio.cab_fam = row['s01mujcabfam']
             Socio.id_pag = pagador
-            Socio.fec_afi = asignar_fecha(row['s01mujcabfam'])
+            Socio.fec_afi = asignar_fecha(row['s01fecingc'])
             Socio.cargo_emp = row['s01cargo']
             Socio.per_a_cargo = row['s01peracar']
             Socio.num_hij_men = 0
@@ -352,6 +422,64 @@ def detalle_econo():
             DetalleEcono.save()
     print('              ... ',datetime.now())
 
+def deta_eco_aho():
+    print('Detalles Comp ... ',datetime.now())
+    Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
+    Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
+    CentroCosto = justo.CENTROCOSTOS.objects.filter(cliente=Cliente,codigo = 'A001').first()
+    with open('c:/ajusto/csv/s06movaho.csv', 'r') as file:
+        csv_reader = csv.DictReader(file,delimiter=';')
+        for row in csv_reader:
+            fecha = datetime.strptime(row['s06fecha'],'%m/%d/%Y')
+            DocZep = justo.XDOC_ZEP.objects.filter(per_con = fecha.year,clase_zep = row['s06clase']).first()
+            if DocZep == None:     # No Hay Doc Zep
+                continue
+            Doc = justo.DOCTO_CONTA.objects.filter(oficina = Oficina,per_con = fecha.year,codigo = DocZep.doc_ds).first()
+            if Doc == None:         # No Hay Documento
+                continue
+            Com = justo.HECHO_ECONO.objects.filter(docto_conta = Doc,numero = int(row['s06documen'])).first()
+            if Com == None:         # No Hay Comprobante
+                print('Mal ',row)
+                continue 
+            Prod = justo.DETALLE_PROD.objects.filter(oficina = Oficina,hecho_econo = Com,concepto = 'AHO',subcuenta = row['s06numcta']).first()
+            if Prod == None:        # No Hay Detalle Prod
+                print('No Prod ',row)
+                continue
+            CtaAho = justo.CTAS_AHORRO.objects.filter(oficina=Oficina,num_cta = row['s06numcta']).first()
+            Ter = CtaAho.asociado.tercero
+            ImpCon = justo.IMP_CON_LIN_AHO.objects.filter(linea_ahorro = CtaAho.lin_aho,cod_imp = CtaAho.cod_imp,).first()
+            CtaCon1 = justo.PLAN_CTAS.objects.filter(cliente = Cliente,per_con = fecha.year,cod_cta =ImpCon.ctaafeact).first()
+            CtaCon2 = justo.PLAN_CTAS.objects.filter(cliente = Cliente,per_con = fecha.year,cod_cta =ImpCon.ctaafeina).first()
+            Ctas = [CtaCon1,CtaCon2]
+            DetComs = justo.DETALLE_ECONO.objects.filter(hecho_econo = Com,tercero = Ter,cuenta__in = Ctas)
+            xMov = ''
+            if row['s06tipmov'] == '0':
+                xMov = 'SalIni'
+            elif row['s06tipmov'] == '1':
+                xMov = 'Deposi'
+            elif row['s06tipmov'] == '2':
+                xMov = 'IntCta'
+            elif row['s06tipmov'] == '3':
+                xMov = 'IntCda'
+            elif row['s06tipmov'] == '4':
+                xMov = 'Canje'
+            elif row['s06tipmov'] == '5':
+                xMov = 'Can_OK'
+            elif row['s06tipmov'] == '6':
+                xMov = 'Retiro'
+            elif row['s06tipmov'] == '7':
+                xMov = 'RetFue'
+            elif row['s06tipmov'] == '8':
+                xMov = 'RF_CDA'
+            elif row['s06tipmov'] == '9':
+                xMov = 'CH_DEV'
+            for DetCom in DetComs:
+                DetCom.detalle_prod = Prod
+                DetCom.item_concepto = xMov
+                DetCom.save()
+    print('Fin   Detalles ... ',datetime.now())
+    return
+
 def linaho():
     print('Lineas Ahorros  ',datetime.now())
     Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
@@ -453,7 +581,8 @@ def ctas_aho():
                 print('Nueva Cta Aho ',row['s05numcta'])
                 CtaAho = justo.CTAS_AHORRO.objects.create(
                         oficina = Oficina,num_cta = row['s05numcta'],lin_aho = LinAho,asociado = Socio)
-            CtaAho.est_cta = row['s05estado'][:0]
+            CtaAho.est_cta = row['s05estado']
+            CtaAho.cod_imp = row['s05codimpcon']
             CtaAho.fec_apertura = asignar_fecha(row['s05fecape'],'%m/%d/%Y')
             CtaAho.fec_cancela = asignar_fecha('01/01/1900','%m/%d/%Y')
             CtaAho.exc_tas_mil = row['s05exegmf']
@@ -564,35 +693,41 @@ def ImpIntDiaAho():
             if CtaCon == None:
                 print('No Existe Cta Con ',row['cod_cta'],'  en el Periodo  ',row['per_con'])
                 continue
-            CtasAho = justo.CTAS_AHORRO.objects.filter(oficina=Oficina,asociado=Socio)
-            CtaAho = None
-            for row1 in CtasAho:
-                LinAho = justo.LINEAS_AHORRO.objects.filter(cliente=Cliente,cod_lin_aho=row1.num_cta[:2]).first()
-                if LinAho.termino == '1':
-                    CtaAho = row1
-                    break
-            if CtaAho == None:
-                print('No Existe Cta Aho Para ',row['per_con'],'-',row['numero'],'  Doc_ide ',row['nit'])
-                continue
-            Docto = justo.DOCTO_CONTA.objects.filter(oficina=Oficina,per_con = row['per_con'],codigo=131).first()
-            if Docto == None:
-                print('No hay Docto  ',row['per_con'],'-','Numero ',row['numero'])
-                continue
-            HecEco = justo.HECHO_ECONO.objects.filter(docto_conta=Docto,numero=row['numero']).first()
+            Docto = justo.DOCTO_CONTA.objects.filter(oficina = Oficina,per_con = row['per_con'],codigo = 131).first()
+            HecEco = justo.HECHO_ECONO.objects.filter(docto_conta = Docto,numero = row['numero']).first()
             if HecEco == None:
-                print('No hay Comprobante ',row['per_con'],'-','Numero ',row['numero'])
-    #        DetPro = justo.DETALLE_PROD.objects.filter(hecho_econo = HecEco,producto='CA',concepto='AHO',subcuenta= CtaAho.num_cta).first()
-    #        if DetPro == None:
-    #            DetPro = justo.DETALLE_PROD.objects.create(hecho_econo = HecEco,producto='CA',concepto='AHO',subcuenta= CtaAho.num_cta,valor=0)
-    #        DetPro.valor = DetPro.valor + float(row['debito']) - float(row['credito'])
-    #        DetPro.save()
-    #        DetHec = justo.DETALLE_ECONO.objects.filter(hecho_econo = HecEco,cuenta=CtaCon,tercero=Tercero,detalle_prod=DetPro).first()
-    #        if DetHec == None:
-    #            DetHec = justo.DETALLE_ECONO.objects.create(hecho_econo = HecEco,cuenta=CtaCon,tercero=Tercero,detalle_prod=DetPro)
-    #        DetHec.debito = float(row['debito'])
-    #        DetHec.credito = float(row['credito'])
-    #        DetHec.detalle = 'Interes Diario CtaAho '+CtaAho.num_cta+'  Tercero '+row['nit']
-    #        DetHec.save()
+                continue
+            if row['cod_cta'][:1] != '2':
+                DetEco = justo.DETALLE_ECONO.objects.filter(hecho_econo = HecEco,cuenta = CtaCon,tercero = Socio.tercero).first()
+                if DetEco == None:
+                    DetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = HecEco,cuenta = CtaCon,tercero = Socio.tercero)
+                DetEco.detalle = 'Anexo IntCta '    
+                DetEco.debito = row['debito']
+                DetEco.credito = row['credito']
+                DetEco.item_concepto = 'AhoAne'
+                DetEco.save()
+            else:
+                ImpCon = justo.IMP_CON_LIN_AHO.objects.filter(Q(ctaafeact=row['cod_cta']) | Q(ctaafeina=row['cod_cta'])).first()
+                if ImpCon == None:
+                    continue
+                CtaAho = justo.CTAS_AHORRO.objects.filter(oficina = Oficina,asociado = Socio,lin_aho = ImpCon.linea_ahorro,cod_imp = ImpCon.cod_imp).first()
+                if CtaAho == None:
+                    continue
+                DetPro = justo.DETALLE_PROD.objects.filter(hecho_econo = HecEco,producto = 'AH',concepto = 'AHO',subcuenta = CtaAho.num_cta,centro_costo = CentroCosto).first()
+                if DetPro == None:
+                    DetPro = justo.DETALLE_PROD.objects.create(hecho_econo = HecEco,producto = 'AH',concepto = 'AHO',subcuenta = CtaAho.num_cta,centro_costo = CentroCosto)
+                DetPro.valor = int(float(row['debito'])) - int(float(row['credito']))
+                DetPro.oficina = Oficina
+                DetPro.save()
+                DetEco = justo.DETALLE_ECONO.objects.filter(hecho_econo = HecEco,cuenta = CtaCon,tercero = Socio.tercero).first()
+                if DetEco == None:
+                    DetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = HecEco,cuenta = CtaCon,tercero = Socio.tercero)
+                DetEco.detalle = 'Int Cta Aho = '+CtaAho.num_cta
+                DetEco.detalle_prod = DetPro
+                DetEco.item_concepto = 'IntCta'
+                DetEco.debito = row['debito']
+                DetEco.credito = row['credito']
+                DetEco.save()
     print('          ... ',datetime.now())
 
 def imp_con_cre():
@@ -605,14 +740,15 @@ def imp_con_cre():
             if ImpConCre == None:
                 ImpConCre = justo.IMP_CON_CRE.objects.create(cliente=Cliente,cod_imp = row['s16codimp'])
             ImpConCre.descripcion = row['s16descripcion']
-            ImpConCre.kcta_pte = ''
-            ImpConCre.kcta_pro_gen_adi = row['s16ctaprogenadi'] 
-            ImpConCre.kcta_pro_gen = row['s16ctaprogen']
-            ImpConCre.kcta_gas_pro_gen = row['s16ctagasprogen']
-            ImpConCre.kcta_rec_pro_gen = row['s16ctarecprogen']
-            ImpConCre.kcta_gas_pro_ind = row['s16ctagasproind']
-            ImpConCre.kcta_rec_pro_ind = row['s16ctarecproind']
-            ImpConCre.icta_des_int_pp = ''
+            ImpConCre.kpte_cap = '42251201'
+            ImpConCre.kpte_ic = '51155901'
+            ImpConCre.kdet_gen_adi = row['s16ctaprogenadi'] 
+            ImpConCre.kdet_gen = row['s16ctaprogen']
+            ImpConCre.kdet_gen_gas = row['s16ctagasprogen']
+            ImpConCre.kdet_gen_rec = row['s16ctarecprogen']
+            ImpConCre.kdet_ind_gas = row['s16ctagasproind']
+            ImpConCre.kdet_ind_rec = row['s16ctarecproind']
+            ImpConCre.kdpp_ic = ''
             ImpConCre.save()
     print('             ',datetime.now())
 
@@ -627,7 +763,7 @@ def imp_con_cre_int():
                 ImpConCreInt = justo.IMP_CON_CRE_INT.objects.create(cliente=Cliente,cod_imp = row['s18codimp'],categoria = row['s18codcat'])
             ImpConCreInt.kcta_con = row['s18ctacon']
             ImpConCreInt.kcta_pro_ind = row['s18ctapro']
-            ImpConCreInt.kporcentaje = row['s18porpro']
+            ImpConCreInt.porcen_det = row['s18porpro']
             ImpConCreInt.save()
     print('   Continua  ',datetime.now())    
     with open('c:/ajusto/csv/s34asicatint.csv', 'r') as file:
@@ -648,27 +784,27 @@ def imp_con_cre_int():
                 if ImpConCreInt == None:
                     ImpConCreInt = justo.IMP_CON_CRE_INT.objects.create(cliente=Cliente,cod_imp = row['s34codimpcon'],categoria = xCat)
                 elif row['s34cuenta'] == 'CxCa':
-                    ImpConCreInt.cta_int = row['s34codcta']
+                    ImpConCreInt.kcxc_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'CxCb':
-                    ImpConCreInt.cta_int = row['s34codcta']
+                    ImpConCreInt.kcxc_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'CxCc':
-                    ImpConCreInt.cta_int = row['s34codcta']
+                    ImpConCreInt.kcxc_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'CxCd':
-                    ImpConCreInt.cta_int = row['s34codcta']
+                    ImpConCreInt.kcxc_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'CxCe':
-                    ImpConCreInt.cta_int = row['s34codcta']
+                    ImpConCreInt.kcxc_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'CxCe':
-                    ImpConCreInt.cta_int = row['s34codcta']
+                    ImpConCreInt.kcxc_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'CxCf':
-                    ImpConCreInt.cta_int = row['s34codcta']
+                    ImpConCreInt.kcxc_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'OrdenC':
-                    ImpConCreInt.cta_ord_int = row['s34codcta']
+                    ImpConCreInt.kord_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'OrdenD':
-                    ImpConCreInt.cta_ord_int = row['s34codcta']
+                    ImpConCreInt.kord_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'OrdenE':
-                    ImpConCreInt.cta_ord_int = row['s34codcta']
+                    ImpConCreInt.kord_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'OrdenF':
-                    ImpConCreInt.cta_ord_int = row['s34codcta']
+                    ImpConCreInt.kord_ic = row['s34codcta']
                 ImpConCreInt.save()
             else:
                 ImpConCre = justo.IMP_CON_CRE.objects.filter(cliente=Cliente,cod_imp = row['s34codimpcon']).first()
@@ -681,7 +817,7 @@ def imp_con_cre_int():
                 elif row['s34cuenta'] == 'CxP':
                     ImpConCre.cta_por_pag = row['s34codcta']
                 elif row['s34cuenta'] == 'OrdenI':
-                    ImpConCre.orden_i = row['s34codcta']
+                    ImpConCre.kord_ic = row['s34codcta']
                 elif row['s34cuenta'] == 'Error':
                     ImpConCre.cta_val = row['s34codcta']
                 ImpConCre.save()
@@ -706,7 +842,7 @@ def cat_des_dia_cre():
     with open('c:/ajusto/csv/s19catdescre.csv', 'r') as file:
         csv_reader = csv.DictReader(file,delimiter=';')
         for row in csv_reader:
-            CatDesDiaCre = justo.CAT_DES_DIA_CRE.objects.filter(cliente=Cliente,codigo = ord(row['s19coddescre']),categoria = row['s19codcat']).first()
+            CatDesDiaCre = justo.CAT_DES_DIA_CRE.objects.filter(cliente=Cliente,codigo = ord(row['s19coddes']),categoria = row['s19codcat']).first()
             if CatDesDiaCre == None:
                 CatDesDiaCre = justo.CAT_DES_DIA_CRE.objects.create(cliente=Cliente,codigo = ord(row['s19coddescre']),categoria = row['s19codcat'])
             CatDesDiaCre.minimo_dias = row['s19diamin']
@@ -736,6 +872,7 @@ def creditos():
     print('Creditos....  ',datetime.now())
     Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
     Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
+    
     with open('c:/ajusto/csv/s12creditos.csv', 'r') as file:
         csv_reader = csv.DictReader(file,delimiter=';')
         for row in csv_reader:
@@ -747,11 +884,10 @@ def creditos():
             if Credito == None:
                 Credito = justo.CREDITOS.objects.create(oficina=Oficina,cod_cre=row['s12codcre'],socio=Socio)
             ImpConCre = justo.IMP_CON_CRE.objects.filter(cliente = Cliente,cod_imp = row['s12codimpcon']).first()
-            if ImpConCre==None:
+            if ImpConCre == None:
                 ImpConCre = justo.IMP_CON_CRE.objects.create(cliente = Cliente,cod_imp = row['s12codimpcon'])
             Credito.imputacion = ImpConCre
-    #   Credito.com_des = ''
-    #   Credito.com_ult_cau = models.ForeignKey(CREDITOS_CAUSA, on_delete=models.CASCADE,null = True)
+            Credito.cod_lin_cre = ord(row['s12codlincre'])
             Credito.cap_ini = row['s12capini'] 
             Credito.libranza = row['s12libranza']
             Credito.pagare = row['s12pagare']
@@ -783,8 +919,21 @@ def creditos():
             Credito.num_pol_gar_hip = row['s12numpolgh']
             Credito.figarantias = row['s12figrantias'][:0]
             Credito.save()
-#   s12percom;s12reestructura;s12codcreres;s12cosjud;s12valcosjud;s12diaconintmor;s12notmor;s12fecnotmor;s12fecpol;
-#   s12fecava;s12codseg;s12costo;s12individual;s12enobs;s12aprobado; s12catevacar
+    with open('c:/ajusto/csv/s10codeudor.csv', 'r') as file:
+        csv_reader = csv.DictReader(file,delimiter=';')
+        for row in csv_reader:
+            Credito = justo.CREDITOS.objects.filter(oficina=Oficina,cod_cre=row['s10codcre']).first()
+            if Credito != None:
+                if Credito.val_gar_hip == 0:
+                    Credito.tip_gar = '1'
+                else:
+                    Credito.tip_gar = '15'
+                Credito.save()
+                GarNoIdo = justo.GAR_NO_IDONEA.objects.filter(oficina = Oficina,credito = Credito,doc_ide = row['s10nit']).first()
+                if GarNoIdo == None:
+                    GarNoIdo = justo.GAR_NO_IDONEA.objects.create(oficina = Oficina,credito = Credito,doc_ide = row['s10nit'])
+                    GarNoIdo.tipo = 'C' 
+                    GarNoIdo.save()
     print('              ',datetime.now())
 
 def importar_mov_cre():
@@ -861,10 +1010,17 @@ def detalle_prod():
             if HechEco == None:
                 print('No Comp Justo',row['c05fecha'],row['c05clase'],row['c05documen'],row['c05concept'])
                 continue
-            DetProd = justo.DETALLE_PROD.objects.filter(hecho_econo=HechEco,producto="CR",
+            xPro = '  '
+            if row['c05concept'] == 'AHO' or row['c05concept'] == 'AHOCH':
+                xPro = 'AH'
+            elif row['c05concept'] == 'APOR' or row['c05concept'] == 'APORE' or row['c05concept'] == 'APORO':
+                xPro = 'AP'
+            elif row['c05concept'] == 'CUOTA' or row['c05concept'] == 'ABOCA' or row['c05concept'] == 'ABOCU'  or row['c05concept'] == 'DESEM'  or row['c05concept'] == 'CASTI'  or row['c05concept'] == 'CONDO':
+                xPro = 'CR'
+            DetProd = justo.DETALLE_PROD.objects.filter(hecho_econo=HechEco,producto=xPro,
                 concepto = row['c05concept'],subcuenta=row['c05subcuen']).first()
             if DetProd == None:
-                DetProd = justo.DETALLE_PROD.objects.create(hecho_econo=HechEco,producto="CR",
+                DetProd = justo.DETALLE_PROD.objects.create(hecho_econo=HechEco,producto=xPro,
                         concepto = row['c05concept'],subcuenta=row['c05subcuen'])
             DetProd.oficina = Oficina       # para mejorar la velocidad
             DetProd.valor = row['c05valor']
@@ -877,7 +1033,6 @@ def grabar_credito_mod():
     Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
     Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
     xMovCams = justo.XMOV_CRE.objects.filter(tip_mov__in=  ['3','4','5'])
-    #xMovCams = justo.XMOV_CRE.objects.filter(estado = 'K')
     for xMovCam in xMovCams:
         try:
             numero = int(xMovCam.docto)  # Intenta convertir la cadena a un entero
@@ -908,6 +1063,7 @@ def grabar_credito_mod():
                     CamCre.tip_cam = '4'
                 elif DetProd.concepto in ['CONDO']:
                     CamCre.tip_cam = '4'
+                CamCre.fecha = xMovCam.fecha   
                 CamCre.capital = xMovCam.capital
                 CamCre.int_cor = xMovCam.int_cor
                 CamCre.int_mor = xMovCam.int_mor
@@ -920,12 +1076,64 @@ def grabar_credito_mod():
             xMovCam.save()
     print('       credito Mod  ',datetime.now())
 
+def grabar_credito_mod2():
+    print('Grabar credito Mod2  ',datetime.now())
+    Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
+    Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
+    xMovCams = justo.XMOV_CRE.objects.filter(clase = '6' ,estado = '2')
+    for xMovCam in xMovCams:
+        try:
+            numero = int(xMovCam.docto)  # Intenta convertir la cadena a un entero
+        except ValueError:
+            xMovCam.estado = '1'
+            xMovCam.save()
+            continue
+        xper_con = xMovCam.fecha.year
+        xFecFin = xMovCam.fecha + timedelta(days=31)
+        query = Q(numero=int(xMovCam.docto)) & Q(fecha__range=(xMovCam.fecha,xFecFin))
+        Comprobs = justo.HECHO_ECONO.objects.filter(query)
+        if not Comprobs.exists():
+            xMovCam.estado = '2'
+            xMovCam.save()
+            continue
+        for Comprob in Comprobs:
+            if Comprob.docto_conta.oficina != Oficina:
+                continue
+            DetProd = justo.DETALLE_PROD.objects.filter(hecho_econo=Comprob,producto='CR',subcuenta=xMovCam.cod_cre,
+                    concepto__in = ['CUOTA','ABOCA','ABOCU','CASTI','CONDO']).first()
+            if DetProd != None:
+                xMovCam.estado = 'Z'
+                xMovCam.save()
+                CamCre = justo.CAMBIOS_CRE.objects.filter(det_pro = DetProd).first()
+                if CamCre == None:
+                    CamCre = justo.CAMBIOS_CRE.objects.create(det_pro = DetProd)
+                if DetProd.concepto in ['CUOTA','ABOCA','ABOCU']:
+                    CamCre.tip_cam = '2' 
+                elif DetProd.concepto in ['CASTI']:
+                    CamCre.tip_cam = '4'
+                elif DetProd.concepto in ['CONDO']:
+                    CamCre.tip_cam = '4'
+                CamCre.fecha = xMovCam.fecha   
+                CamCre.capital = xMovCam.capital
+                CamCre.int_cor = xMovCam.int_cor
+                CamCre.int_mor = xMovCam.int_mor
+                CamCre.pol_seg = 0
+                CamCre.acreedor = xMovCam.acreed
+                CamCre.save()
+                break
+        if xMovCam.estado != 'Z':
+            xMovCam.estado = '3'
+            xMovCam.save()
+    print('       credito Mod  ',datetime.now())
+
 def asigna_con_cre():
     print('Recorrido...  ',datetime.now())
     Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
     Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
-    xMovCres = justo.XMOV_CRE.objects.filter(tip_mov__in = ['6','7','8','9','A'])
+    xMovCres = justo.XMOV_CRE.objects.filter(tip_mov__in = ['6','7','8','9','A'])   #,cod_cre = '132258',docto = '397335')
     for xMovCre in xMovCres:
+        if xMovCre.cod_cre == '132258' and xMovCre.docto == '393495':
+            i = 1        
         xFecha = xMovCre.fecha
         xDocto = xMovCre.docto
         xPercon = xMovCre.fecha.year
@@ -959,7 +1167,7 @@ def asigna_con_cre():
         if DetProd == None:
             xMovCre.estado = '4'
             xMovCre.save()
-            continue
+            continue#
         Credito = justo.CREDITOS.objects.filter(oficina = Oficina,cod_cre = xMovCre.cod_cre).first()    
         if Credito == None:
             xMovCre.estado = '5'
@@ -976,25 +1184,22 @@ def asigna_con_cre():
                 xMovCre.estado = '7'
                 xMovCre.save()
                 continue
+#  si Todo esto se cumple debe haber un asiento que refleje el movimiento del credito en capital
             HalDetEco = justo.DETALLE_ECONO.objects.filter(hecho_econo = xHechoEco,cuenta=Cuenta,
-                                tercero = Tercero,detalle_prod = None).first()
+                                tercero = Tercero).first()
             if HalDetEco == None:
                 xMovCre.estado = '8'
                 xMovCre.save()
                 continue
-            if xMovCre.capital < 0 and xMovCre.capital == -HalDetEco.credito:
+            if xMovCre.capital < 0 and xMovCre.capital == -HalDetEco.credito and (HalDetEco.valor_1 == 0 and HalDetEco.valor_2 == 0):
                 HalDetEco.detalle_prod = DetProd
                 HalDetEco.item_concepto = 'Kapita'
                 HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
                 HalDetEco.valor_2 = -xMovCre.capital
                 HalDetEco.save()
             else:
-                HalDetEco.item_concepto = 'Varios'
-                HalDetEco.detalle = HalDetEco.detalle.strip()+'  Cr ' + xMovCre.cod_cre
-                HalDetEco.valor_2 = 0 if HalDetEco.valor_2 is None else HalDetEco.valor_2 - xMovCre.capital
-                HalDetEco.save()
                 NvoDetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = xHechoEco,cuenta=Cuenta,
-                                tercero = Tercero,detalle_prod = DetProd)
+                               tercero = Tercero,detalle_prod = DetProd)
                 NvoDetEco.item_concepto = 'Kapita'
                 NvoDetEco.detalle = 'Nuevo ' + xMovCre.cod_cre
                 NvoDetEco.debito = 0
@@ -1008,39 +1213,46 @@ def asigna_con_cre():
                 xMovCre.estado = '7'
                 xMovCre.save()
                 continue
+#  si Todo esto se cumple debe haber un asiento que refleje el movimiento del credito en IntCor
             HalDetEco = justo.DETALLE_ECONO.objects.filter(hecho_econo = xHechoEco,cuenta=Cuenta,
-                                tercero = Tercero,detalle_prod = None).first()
+                                tercero = Tercero).first()
             if HalDetEco == None:
                 xMovCre.estado = '8'
                 xMovCre.save()
                 continue
-            if xMovCre.int_cor < 0 and xMovCre.int_cor == -HalDetEco.credito:
+            if xMovCre.int_cor < 0 and xMovCre.int_cor == -HalDetEco.credito and (HalDetEco.valor_1 == 0 and HalDetEco.valor_2 == 0):
                 HalDetEco.detalle_prod = DetProd
                 HalDetEco.item_concepto = 'IntCor'
                 HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
                 HalDetEco.valor_2 = -xMovCre.int_cor
                 HalDetEco.save()
-            elif xMovCre.int_cor > 0 and xMovCre.int_cor == HalDetEco.debito:
-                HalDetEco.detalle_prod = DetProd
-                HalDetEco.item_concepto = 'IntCor'
-                HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
-                HalDetEco.valor_1 = xMovCre.int_cor
-                HalDetEco.save()          
-            else:
-                HalDetEco.item_concepto = 'Varios'
-                HalDetEco.detalle = HalDetEco.detalle.strip()+'  Cr ' + xMovCre.cod_cre
-                HalDetEco.valor_2 = 0 if HalDetEco.valor_2 is None else HalDetEco.valor_2 - xMovCre.int_cor
+            elif xMovCre.int_cor < 0:
                 HalDetEco.save()
                 NvoDetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = xHechoEco,cuenta=Cuenta,
-                                tercero = Tercero,detalle_prod = DetProd)
+                            tercero = Tercero,detalle_prod = DetProd)
                 NvoDetEco.item_concepto = 'IntCor'
-                NvoDetEco.detalle = 'Nuevo ' + xMovCre.cod_cre
+                NvoDetEco.detalle = 'Nuevo1 ' + xMovCre.cod_cre
                 NvoDetEco.debito = 0
                 NvoDetEco.credito = 0
                 NvoDetEco.valor_1 = 0
                 NvoDetEco.valor_2 = -xMovCre.int_cor
                 NvoDetEco.save()
-
+            if xMovCre.int_cor > 0 and xMovCre.int_cor == HalDetEco.debito and (HalDetEco.valor_1 == 0 and HalDetEco.valor_2 == 0):
+                HalDetEco.detalle_prod = DetProd
+                HalDetEco.item_concepto = 'IntCor'
+                HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
+                HalDetEco.valor_1 = xMovCre.int_cor
+                HalDetEco.save()     
+            elif xMovCre.int_cor > 0:
+                NvoDetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = xHechoEco,cuenta=Cuenta,
+                            tercero = Tercero,detalle_prod = DetProd)
+                NvoDetEco.item_concepto = 'IntCor'
+                NvoDetEco.detalle = 'Nuevo1 ' + xMovCre.cod_cre
+                NvoDetEco.debito = 0
+                NvoDetEco.credito = 0
+                NvoDetEco.valor_1 = xMovCre.int_cor
+                NvoDetEco.valor_2 = 0
+                NvoDetEco.save()
         if xMovCre.int_mor != 0: 
             Cuentas = justo.PLAN_CTAS.objects.filter(cliente=Cliente,per_con=xPercon,cod_cta__in = ['41504001','41503501'])
             HalDetEco = None
@@ -1054,38 +1266,45 @@ def asigna_con_cre():
                 xMovCre.save()
                 continue
             HalDetEco = justo.DETALLE_ECONO.objects.filter(hecho_econo = xHechoEco,cuenta=Cuenta,
-                                tercero = Tercero,detalle_prod = None).first()
+                                tercero = Tercero).first()
             if HalDetEco == None:
                 xMovCre.estado = '8'
                 xMovCre.save()
                 continue
-            if xMovCre.int_mor < 0 and xMovCre.int_mor == -HalDetEco.credito:
+            if xMovCre.int_mor < 0 and xMovCre.int_mor == -HalDetEco.credito and (HalDetEco.valor_1 == 0 and HalDetEco.valor_2 == 0):
                 HalDetEco.detalle_prod = DetProd
                 HalDetEco.item_concepto = 'IntMor'
                 HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
                 HalDetEco.valor_2 = -xMovCre.int_mor
                 HalDetEco.save()
-            elif xMovCre.int_cor > 0 and xMovCre.int_mor == HalDetEco.debito:
-                HalDetEco.detalle_prod = DetProd
-                HalDetEco.item_concepto = 'IntMor'
-                HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
-                HalDetEco.valor_1 = xMovCre.int_mor
-                HalDetEco.save()          
-            else:
-                HalDetEco.item_concepto = 'Varios'
-                HalDetEco.detalle = HalDetEco.detalle.strip()+'  Cr ' + xMovCre.cod_cre
-                HalDetEco.valor_2 = 0 if HalDetEco.valor_2 is None else HalDetEco.valor_2 - xMovCre.int_mor
-                HalDetEco.save()
+            elif xMovCre.int_mor < 0 :
                 NvoDetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = xHechoEco,cuenta=Cuenta,
-                                tercero = Tercero,detalle_prod = DetProd)
+                            tercero = Tercero,detalle_prod = DetProd)
                 NvoDetEco.item_concepto = 'IntMor'
-                NvoDetEco.detalle = 'Nuevo ' + xMovCre.cod_cre
+                NvoDetEco.detalle = 'Nuevo1 ' + xMovCre.cod_cre
                 NvoDetEco.debito = 0
                 NvoDetEco.credito = 0
                 NvoDetEco.valor_1 = 0
                 NvoDetEco.valor_2 = -xMovCre.int_mor
                 NvoDetEco.save()
-
+            if xMovCre.int_mor >= 0 and xMovCre.int_mor == HalDetEco.credito and (HalDetEco.valor_1 == 0 and HalDetEco.valor_2 == 0):
+                HalDetEco.detalle_prod = DetProd
+                HalDetEco.item_concepto = 'IntMor'
+                HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
+                HalDetEco.valor_1 = xMovCre.int_mor
+                HalDetEco.save()          
+            elif xMovCre.int_mor >= 0:
+                HalDetEco.detalle = 'Varios IntMor +'
+                HalDetEco.save()
+                NvoDetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = xHechoEco,cuenta=Cuenta,
+                            tercero = Tercero,detalle_prod = DetProd)
+                NvoDetEco.item_concepto = 'IntMor'
+                NvoDetEco.detalle = 'Nuevo1 ' + xMovCre.cod_cre
+                NvoDetEco.debito = 0
+                NvoDetEco.credito = 0
+                NvoDetEco.valor_1 = xMovCre.int_mor
+                NvoDetEco.valor_2 = 0
+                NvoDetEco.save()
         if xMovCre.acreed != 0: 
             Cuenta = justo.PLAN_CTAS.objects.filter(cliente=Cliente,per_con=xPercon,cod_cta = '24459501').first()
             if Cuenta == None:
@@ -1093,12 +1312,12 @@ def asigna_con_cre():
                 xMovCre.save()
                 continue
             HalDetEco = justo.DETALLE_ECONO.objects.filter(hecho_econo = xHechoEco,cuenta=Cuenta,
-                                tercero = Tercero,detalle_prod = None).first()
+                                tercero = Tercero).first()
             if HalDetEco == None:
                 xMovCre.estado = '8'
                 xMovCre.save()
                 continue
-            if xMovCre.acreed < 0 and xMovCre.acreed == -HalDetEco.credito:
+            if xMovCre.acreed < 0 and xMovCre.acreed == -HalDetEco.credito and (HalDetEco.valor_1 == 0 and HalDetEco.valor_2 == 0):
                 HalDetEco.detalle_prod = DetProd
                 HalDetEco.item_concepto = 'Acreed'
                 HalDetEco.detalle = 'Ok ' + xMovCre.cod_cre
@@ -1111,10 +1330,6 @@ def asigna_con_cre():
                 HalDetEco.valor_1 = xMovCre.acreed
                 HalDetEco.save()          
             else:
-                HalDetEco.item_concepto = 'Varios'
-                HalDetEco.detalle = HalDetEco.detalle.strip()+'  Cr ' + xMovCre.cod_cre
-                HalDetEco.valor_2 = 0 if HalDetEco.valor_2 is None else HalDetEco.valor_2 - xMovCre.acreed
-                HalDetEco.save()
                 NvoDetEco = justo.DETALLE_ECONO.objects.create(hecho_econo = xHechoEco,cuenta=Cuenta,
                                 tercero = Tercero,detalle_prod = DetProd)
                 NvoDetEco.item_concepto = 'Acreed'
@@ -1401,27 +1616,81 @@ def codeudores():
             Codeudor.save()
     print('          ...  ',datetime.now())
 
-def xxx():
-    x=0
-    #resultados = justo.DETALLE_PROD.objects.filter(producto='CR', subcuenta='59933',
-    #        hecho_econo__docto_conta__oficina=Oficina
-    #    ).select_related(
-    #        'hecho_econo__docto_conta__oficina', 
-    #        'detalle_econo'
-    #    ).order_by(
-    #        'hecho_econo__fecha'
-    #    ).values(
-    #        'hecho_econo__fecha', 
-    #       'concepto', 
-    #        'valor', 
-    #        'detalle_econo__item_concepto',
-    #        'detalle_econo__valor_1',
-    #        'detalle_econo__valor_2',
-    #    )
-    #print('Opcion 2  ',datetime.now())
-    #for resultado in resultados:
-    #    print(resultado['hecho_econo__fecha'],' ',resultado['detalle_econo__item_concepto'])
-    #print('Opcion 3  ',datetime.now())
+def categorizacion():
+    print('Grabar Categorizaciones  ',datetime.now())
+    Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
+    Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
+    reg_inicio = 379997
+    with open('c:/ajusto/csv/s24catecred.csv', 'r') as file:
+        csv_reader = csv.DictReader(file, delimiter=';')
+        for index, row in enumerate(csv_reader, start=1):
+            if index < reg_inicio:
+                continue  # Saltar las filas hasta alcanzar el número de registro inicial
+            CreCarHis = justo.CARTE_CAT_HIS.objects.filter(oficina = Oficina,fecha = asignar_fecha(row['s24fecha']),cod_cre = row['s24codcre']).first()
+            if CreCarHis == None:
+                CreCarHis = justo.CARTE_CAT_HIS.objects.create(oficina = Oficina,fecha = asignar_fecha(row['s24fecha']),cod_cre = row['s24codcre'])
+            CreCarHis.nit = row['s24nit']
+            CreCarHis.cod_lin_cre = row['s24codlincre']
+            CreCarHis.cod_imp_con = row['s24codimpcon']
+            CreCarHis.for_pag = row['s24forpag']
+            CreCarHis.plazo = row['s24plazo']
+            CreCarHis.dias_mor = row['s24diamor']
+            CreCarHis.cap_ini = row['s24capini']
+            CreCarHis.sal_cap = row['s24salcap']
+            CreCarHis.sal_cap_dia = row['s24salcapdia']
+            CreCarHis.sal_int_dia = row['s24salintdia']
+            CreCarHis.int_cau_res_per = row['s24intcauresmes']
+            CreCarHis.categoria = row['s24categoria']
+            CreCarHis.arrastre = row['s24arrastre']
+            CreCarHis.aporte = row['s24aporte']
+            CreCarHis.pro_ind = row['s24provision']
+            CreCarHis.saldo_1 = row['s24saldo1']
+            CreCarHis.saldo_2 = row['s24saldo2']
+            CreCarHis.vr_gar_hip = row['s24valgarhip']
+            CreCarHis.cat_int_mes = row['s24catint']
+            CreCarHis.sal_cat_int = row['s24salcatint']
+            CreCarHis.castigo = row['s24casti']
+            CreCarHis.gas_pro_ind = row['s24gasproind']
+            CreCarHis.gas_pro_gen = row['s24gasprogen']
+            CreCarHis.zeta = row['z']
+            CreCarHis.puntaje = row['puntaje']
+            CreCarHis.cat_mod = row['cat_mod']
+            CreCarHis.cat_ree = row['cat_ree']
+            CreCarHis.cat_eva = row['cat_eva']
+            CreCarHis.pro_inc = row['pi']
+            CreCarHis.pdi = row['pdi']
+            CreCarHis.vea = row['vea']
+            CreCarHis.pe = row['pe']
+            CreCarHis.conta_per = row['conta']
+            CreCarHis.ali_cuota = row['ali_mes']
+            Credito = justo.CREDITOS.objects.filter(oficina = Oficina,cod_cre = row['s24codcre']).first()
+            if Credito != None:
+                CreCarHis.credito = Credito
+            CreCarHis.save()
+    print('Fin credito CATEGO  ',datetime.now())
+
+def catego_detalle():
+    print('Grabar Categori Detalle  ',datetime.now())
+    Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
+    Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
+    reg_inicio = 0
+    with open('c:/ajusto/csv/s31hiscatint.csv', 'r') as file:
+        csv_reader = csv.DictReader(file, delimiter=';')
+        for index, row in enumerate(csv_reader, start=1):
+            if index < reg_inicio:
+                continue  # Saltar las filas hasta alcanzar el número de registro inicial
+            CatDet = justo.CARTERA_CXC.objects.filter(oficina = Oficina,fecha = asignar_fecha(row['s31fecha']),cod_cre = row['s31codcre'],fec_ref = asignar_fecha(row['s31fecref'])).first()
+            if CatDet == None:
+                CatDet = justo.CARTERA_CXC.objects.create(oficina = Oficina,fecha = asignar_fecha(row['s31fecha']),cod_cre = row['s31codcre'],fec_ref = asignar_fecha(row['s31fecref']))
+            CatDet.categoria = row['s31cat']
+            CatDet.valor = row['s31valor']
+            CatDet.val_ali = row['s31valali']
+            CatDet.clave = row['s31clave']
+            Credito = justo.CREDITOS.objects.filter(oficina = Oficina,cod_cre = row['s31codcre']).first()
+            if Credito != None:
+                CatDet.credito = Credito
+            CatDet.save()
+    print('Fin credito CATEGO  ',datetime.now())
 
 def vMov_cre():
     Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
@@ -1581,10 +1850,46 @@ def prueba():
     print('Creditos  ',xNumCre,'   ',xTotSal)
     print('Fin       ',datetime.now())
 
+def huerfanos_aho():
+    print('Huerfanos Ahorros ',datetime.now())
+    Cliente = justo.CLIENTES.objects.filter(codigo='A').first()
+    Oficina = justo.OFICINAS.objects.filter(codigo='A0001').first()
+    CentroCosto = justo.CENTROCOSTOS.objects.filter(cliente=Cliente,codigo = 'A001').first()
+    ctas_aho = ['21100501','21100501','21101001','21101001','21101501','21101501','21102001','21102001','21050501','21051001',
+			    '21250501','21050502','21051002','21050503','21051003','21250501','21251501','21050504','21051004']
+    DetHues = justo.DETALLE_ECONO.objects.filter(cuenta__cod_cta__in=ctas_aho,detalle_prod__isnull=True
+            ).select_related('cuenta', 'hecho_econo')
+    print(DetHues.count())
+    for DetHue in DetHues:
+        Tercero = DetHue.tercero
+        ImpCon = justo.IMP_CON_LIN_AHO.objects.filter(Q(ctaafeact=DetHue.cuenta.cod_cta) | Q(ctaafeina=DetHue.cuenta.cod_cta)).first()
+        if ImpCon == None:
+            continue
+        Socio = justo.ASOCIADOS.objects.filter(oficina = Oficina,tercero = Tercero).first()
+        if Socio == None:
+            print('No Existe Asociado',Tercero.doc_ide)
+            continue
+        CtaAho = justo.CTAS_AHORRO.objects.filter(oficina = Oficina,asociado = Socio,lin_aho = ImpCon.linea_ahorro,cod_imp = ImpCon.cod_imp).first()
+        if CtaAho == None:
+            print('Asociado ',Tercero.doc_ide,' No tiene cuenta de ahorro')
+            continue
+        DetPro = justo.DETALLE_PROD.objects.filter(hecho_econo = DetHue.hecho_econo,producto = 'AH',concepto = 'AHO',subcuenta = CtaAho.num_cta,centro_costo = CentroCosto).first()
+        if DetPro == None:
+            DetPro = justo.DETALLE_PROD.objects.create(hecho_econo = DetHue.hecho_econo,producto = 'AH',concepto = 'AHO',subcuenta = CtaAho.num_cta,centro_costo = CentroCosto)
+        DetPro.valor = DetHue.debito - DetHue.credito
+        DetPro.save()
+        DetHue.detalle = 'Int Cta Aho = '+CtaAho.num_cta
+        DetHue.detalle_prod = DetPro
+        DetHue.item_concepto = 'SalIni' if DetHue.hecho_econo.numero == 1 else ('Deposi' if DetPro.valor < 0 else 'Retiro')
+        DetHue.save()
+    print('Fin   Huerfanos  ',datetime.now())        
+    return
+
 def init():
-    prueba()
-    #vMov_cre()
+    #   prueba()
+    #   vMov_cre()
     #   inicio()
+    #   tablas_de_referencia()
     #   terceros()       #  SOLO LOS REGISTRADOS EN DINAMICA
     #   pagadores()
     #   socios()            
@@ -1601,7 +1906,7 @@ def init():
     #   cta_cdat()
     #   cta_cdat_amp()
     #   cta_cda_liq()
-    #   ImpIntDiaAho()  queda pendiente para definir cuentas
+    #   ImpIntDiaAho()      #  110 minutos
     #   lineas_credito()
     #   cat_des_dia_cre()
     #   imp_con_cre()
@@ -1611,10 +1916,10 @@ def init():
     #   importar_mov_cre()      #  36 Min
     #   grabar_causa_cre()      #    42 Min tener en cuenta que en la implantacion final se debe importar completamente 
     #   detalle_prod()          #    110 Min
-    #   grabar_credito_mod()    #  180 Min
-    #   asigna_con_cre()     #   47  Min
-
-
+    #   deta_eco_aho()
+    #   grabar_credito_mod()
+    #   grabar_credito_mod2()    #  necesidad de un ajuste cuando se aplica abocu con ajuste en fecha diferente al del movimiento
+    #   asigna_con_cre()     #   47  Min  se ha cambiado temporalmente port erorres pero en la importacion definitiva deben quitarse los comentarios
     #   est_fin()
     #   bene_aso()
     #   referencias()
@@ -1624,4 +1929,8 @@ def init():
     #   asigna_com_cre()   No seria necesario solo sondeo
     #   codeudores()
     #   plan_aportes()
+    #   categorizacion()
+    #   catego_detalle()    #  28 min
+    #   huerfanos_aho()
+
 init()
