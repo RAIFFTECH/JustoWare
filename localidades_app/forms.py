@@ -7,9 +7,9 @@ class CrearForm(forms.ModelForm):
     class Meta:
         model = LOCALIDADES
         fields = ['cliente','codigo','nombre','cod_pos','departamento']
-        widgets = {
-                    'codigo': forms.TextInput(attrs={'class': 'form-control'}),
-                    'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-                    'cod_pos': forms.TextInput(attrs={'class': 'form-control'}),
-                    'departamento': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+        # widgets = {
+        #             'codigo': forms.NumberInput(attrs={'class': 'form-control'}),
+        #             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+        #             'cod_pos': forms.NumberInput(attrs={'class': 'form-control'}),
+        #             'departamento': forms.TextInput(attrs={'class': 'form-control'}),
+        # }

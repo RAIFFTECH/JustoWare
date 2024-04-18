@@ -127,9 +127,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'JustoWare',
         'USER': 'root',
-        'PASSWORD': 'RaiffTech',
+        'PASSWORD': 'MariaDB2023',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '2023',
     }
 }
 

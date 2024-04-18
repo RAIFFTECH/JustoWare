@@ -33,7 +33,6 @@ class Detalles(LoginRequiredMixin, DetailView):
     template_name = 'detalles_centrocosto.html'
 
 
-
 # Para crear un nuevo registro
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = CENTROCOSTOS
