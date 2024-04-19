@@ -24,6 +24,31 @@ class Lista(LoginRequiredMixin, ListView):
     form = CrearForm
     template_name = 'lista_localidades.html'
     ordering = ['cliente', 'codigo']
+    
+
+    # def get_queryset(self):
+    #     # Obtén el queryset base para el modelo LOCALIDADES
+    #     queryset = super().get_queryset()
+
+    #     # Puedes obtener el cliente desde la solicitud (request) de diferentes maneras
+    #     # Por ejemplo, si el cliente está en los argumentos de la URL, puedes usar:
+    #     # cliente_id = self.kwargs.get('cliente_id')
+
+    #     # Si el cliente es parte de la sesión del usuario, puedes usar:
+    #     # cliente_id = self.request.user.cliente_id
+    #     cliente_id = 2
+
+    #     # Por simplicidad, aquí se toma un cliente_id específico como ejemplo
+    #     # Cambia este valor según tus necesidades
+    #     # cliente_id = self.request.GET.get('cliente_id', None)
+
+    #     # Filtra el queryset por cliente si se proporciona un cliente_id
+    #     if cliente_id:
+    #         queryset = queryset.filter(cliente=cliente_id)
+
+    #         # Retorna el queryset filtrado
+    #         return queryset
+
 
 
 # Para obtener todos los detalles de un registro
@@ -53,12 +78,19 @@ class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     # Redirigimos a la página principal tras insertar el registro
     def get_success_url(self):
         return reverse('listar_localidades')
+    
 
 # Para modificar un registro
 class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = LOCALIDADES
     form = CrearForm
     fields = '__all__'
+    widgets = {
+        'codigo': forms.NumberInput(attrs={'class': 'form-control'}),
+        'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+        'cod_pos': forms.NumberInput(attrs={'class': 'form-control'}),
+        'departamento': forms.TextInput(attrs={'class': 'form-control'}),
+    }
     template_name = 'actualizar_localidades.html'
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Registro actualizado correctamente.'
@@ -85,7 +117,7 @@ class ImprimirPDF(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         # Recupera los datos de la base de datos
         # Asegúrate de adaptar esto a tu modelo y consulta específicos
-        localidades = LOCALIDADES.objects.all().order_by('oficina', 'codigo')
+        localidades = LOCALIDADES.objects.all().order_by('cliente', 'codigo')
 
         # Creamos un objeto HttpResponse con el tipo de contenido PDF
         response = HttpResponse(content_type='application/pdf')

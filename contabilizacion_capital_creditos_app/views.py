@@ -22,7 +22,7 @@ from .models import IMP_CON_CRE
 class Lista(LoginRequiredMixin, ListView):
     model = IMP_CON_CRE
     form = CrearForm
-    template_name = 'lista_con_capital_cre.html'
+    template_name = 'lista_con_cap_cre.html'
     ordering = ['cliente', 'cod_imp']
      
 
@@ -30,7 +30,7 @@ class Lista(LoginRequiredMixin, ListView):
 class Detalles(LoginRequiredMixin, DetailView):
     model = IMP_CON_CRE
     form = CrearForm
-    template_name = 'detalles_con_capital_cre.html'
+    template_name = 'detalles_con_cap_cre.html'
 
 # Para crear un nuevo registro
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -41,7 +41,7 @@ class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     #            'codigo': forms.NumberInput(attrs={'class': 'form-control rounded-pill'}),
     #            'centro_costo': forms.TextInput(attrs={'class': 'form-control rounded-pill'})
     #            }
-    template_name = 'crear_con_capital_cre.html'
+    template_name = 'crear_con_cap_cre.html'
 
     # Mensaje que se mostrará cuando se inserte el registro
     success_message = 'Registro añadido correctamente.'
@@ -55,7 +55,7 @@ class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = IMP_CON_CRE
     form = CrearForm
     fields = '__all__'
-    template_name = 'actualizar_con_capital_cre.html'
+    template_name = 'actualizar_con_cap_cre.html'
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Registro actualizado correctamente.'
 

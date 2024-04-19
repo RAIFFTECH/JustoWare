@@ -30,7 +30,7 @@ class Lista(LoginRequiredMixin, ListView):
 class Detalles(LoginRequiredMixin, DetailView):
     model = OFICINAS
     form = CrearForm
-    template_name = 'detalles_oficinas.html'
+    template_name = 'detalles_oficina.html'
 
 
 # Para crear un nuevo registro
@@ -42,7 +42,7 @@ class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     #            'codigo': forms.NumberInput(attrs={'class': 'form-control rounded-pill'}),
     #            'centro_costo': forms.TextInput(attrs={'class': 'form-control rounded-pill'})
     #            }
-    template_name = 'crear_oficinas.html'
+    template_name = 'crear_oficina.html'
 
     # Mensaje que se mostrará cuando se inserte el registro
     success_message = 'Registro añadido correctamente.'
@@ -104,10 +104,10 @@ class ImprimirPDF(LoginRequiredMixin, View):
         # p.drawString(80, 660, f"Dirección: {dato.direccion}")
         # p.drawString(80, 640, f"Ciudad: {dato.ciudad}")
 
-        datos_tabla = [["Oficina", "Código", "Centro de Costo"]]
+        datos_tabla = [["cliente","codigo","contabiliza","nombre_oficina","responsable","celular","email","direccion","ciudad"]]
 
         for dato in oficinas:
-            datos_tabla.append([dato.oficina, dato.codigo, dato.centro_costo])
+            datos_tabla.append([dato.cliente, dato.codigo, dato.contabiliza, dato.nombre_oficina, dato.responsable, dato.celular, dato.email, dato.direccion, dato.ciudad])
 
         # Agrega más campos según tus necesidades
 

@@ -12,7 +12,7 @@ from .models import PAGADORES
 # Para obtener todos los registros de la tabla de pagadores
 class Lista(LoginRequiredMixin,ListView):
     model = PAGADORES
-    template_name = 'lista_pagador.html'
+    template_name = 'lista_pagadores.html'
 
 # Para obtener todos los campos de un registro de la tabla pagadores
 class Detalles(LoginRequiredMixin,DetailView):

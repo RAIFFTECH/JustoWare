@@ -3,14 +3,14 @@ from clientes_app.models import CLIENTES
 from justo_app.opciones import OPC_CRE_CATEGORIA
 # Create your models here.
 class IMP_CON_CRE_INT(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE)
-    cod_imp = models.CharField(max_length=2, null=True)
-    categoria = models.CharField(max_length=1, choices=OPC_CRE_CATEGORIA)
-    kcta_con = models.CharField(max_length=10, null=True)
-    kcta_pro_ind = models.CharField(max_length=10, null=True)
-    kporcentaje = models.FloatField(null=True, blank=True)
-    cta_int = models.CharField(max_length=10, null=True)
-    cta_ord_int = models.CharField(max_length=10, null=True)
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cod_imp = models.CharField(max_length=2, null=True, verbose_name='Código')
+    categoria = models.CharField(max_length=1, choices=OPC_CRE_CATEGORIA, verbose_name='Categoria')
+    kcta_con = models.CharField(max_length=10, null=True, verbose_name='Cuenta Contable')
+    kcta_pro_ind = models.CharField(max_length=10, null=True, verbose_name='Cuenta Provisión Individual')
+    kporcentaje = models.FloatField(null=True, blank=True, verbose_name='Porcentaje')
+    cta_int = models.CharField(max_length=10, null=True, verbose_name='Cuenta Intereses')
+    cta_ord_int = models.CharField(max_length=10, null=True, verbose_name='Cuenta de Orden Intereses')
 
     class Meta:
         unique_together = [['cliente', 'cod_imp', 'categoria']]
