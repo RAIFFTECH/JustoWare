@@ -10,7 +10,7 @@
 
 <div class="content-wrapper">
 	<div class="page-header">
-		<h2 class=" text-primary">Lista de Contabilizaciones Intereses </h3>
+		<h2 class=" text-primary">Lista Contabilizaciones de Intereses </h3>
 			<div lign="left" class="btn_crear mb-0">
 				<a href="../crear" target="_blank" title="Agregar" type="button" class="btn btn-light rounded-pill"><i
 						class="bi bi-file-earmark-plus"></i>
@@ -41,17 +41,17 @@
 							<thead>
 								<tr>
 									<th>Código</th>
-									<th>Ciudad</th>
-									<th>Departamento</th>
+									<th>Categoria</th>
+									<th>Cta. Contable</th>
 									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								{% for contacto in object_list %}
 								<tr class="rounded shadow">
-									<td>{{ contacto.codigo }}</td>
-									<td>{{ contacto.nombre }}</td>
-									<td>{{ contacto.departamento }}</td>
+									<td>{{ contacto.cod_imp }}</td>
+									<td>{{ contacto.categoria }}</td>
+									<td>{{ contacto.kcta_con }}</td>
 									<td>
 										<!-- Formulario para eliminar un registro desde la misma tabla HTML -->
 										<form method="POST" action="eliminar/{{contacto.id}}">

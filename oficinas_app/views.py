@@ -25,13 +25,11 @@ class Lista(LoginRequiredMixin, ListView):
     template_name = 'lista_oficinas.html'
     ordering = ['cliente', 'codigo']
 
-
 # Para obtener todos los detalles de un registro
 class Detalles(LoginRequiredMixin, DetailView):
     model = OFICINAS
     form = CrearForm
     template_name = 'detalles_oficina.html'
-
 
 # Para crear un nuevo registro
 class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -56,7 +54,7 @@ class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = OFICINAS
     form = CrearForm
     fields = '__all__'
-    template_name = 'actualizar_oficinas.html'
+    template_name = 'actualizar_oficina.html'
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Registro actualizado correctamente.'
 

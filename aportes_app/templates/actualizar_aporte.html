@@ -12,8 +12,8 @@
 
 <div class="content-wrapper">
 	<div class="page-header">
-		<h2 class=" text-primary">Actualizar Aportes </h3>
-			<a href="{% url 'listar_aportes' %}" class="btn btn-inverse-primary rounded-pill">
+		<h2 class=" text-primary">Actualizar Aporte </h3>
+			<a href="{% url 'listar_aporte' %}" class="btn btn-inverse-primary rounded-pill">
 				<i class="mdi mdi-arrow-left mx-2"></i>
 				Volver
 			</a>
@@ -30,11 +30,8 @@
 						{% csrf_token %}
 						{{form|crispy}}
 
-						<button type="submit" title="Guardar" class="btn btn-light rounded-pill"><i
-								class="bi bi-floppy"></i> Actualizar</button>
-						<a href="../" title="Cancelar" type="submit" class="btn btn-light rounded-pill"><i
-								class="bi bi-x-square"></i>
-							Cancelar</a>
+						<button type="submit" title="Guardar" class="btn btn-light rounded-pill"><i class="bi bi-floppy"></i> Actualizar</button>
+						<a href="../" title="Cancelar" type="submit" class="btn btn-light rounded-pill"><i class="bi bi-x-square"></i> Cancelar</a>
 					</form>
 				</div>
 			</div>

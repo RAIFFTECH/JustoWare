@@ -40,7 +40,6 @@
 							style="border-collapse: separate;border-spacing: 0 1.2rem;">
 							<thead>
 								<tr>
-									<th>Código</th>
 									<th>Nombre</th>
 									<th>Ciudad</th>
 									<th>Pagador</th>
@@ -51,7 +50,6 @@
 							<tbody>
 								{% for contacto in object_list %}
 								<tr class="rounded shadow">
-									<td>{{ contacto.codigo }}</td>
 									<td>{{ contacto.nombre }}</td>
 									<td>{{ contacto.ciudad }}</td>
 									<td>{{ contacto.pagador }}</td>

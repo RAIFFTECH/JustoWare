@@ -11,12 +11,12 @@ class CONCEPTOS(models.Model):
     tip_dev_ap = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Tipo Devolución Aportes')
     tip_con = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Tipo Concepto')
     tip_sis = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Tipo Sistema')
-    cta_con = models.CharField(max_length=10, null=False, verbose_name='Cuenta Contable')
-    cta_con_pas = models.CharField(max_length=10, null=False, verbose_name='Cuenta Contable Pasivo')
+    cta_con = models.CharField(max_length=10, blank=True, null=False, verbose_name='Cuenta Contable')
+    cta_con_pas = models.CharField(max_length=10, blank=True, null=False, verbose_name='Cuenta Contable Pasivo')
     debito = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Concepto Débito?')
     credito = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Concepto Crédito?')
     por_tercero = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Usa Tercero?')
-    por_ret_fue = models.FloatField(null=True, blank=True, verbose_name='Usa Retefuente?')
+    por_ret_fue = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Usa Retefuente?')
 
     class Meta:
         unique_together = [['cliente', 'cod_con']]

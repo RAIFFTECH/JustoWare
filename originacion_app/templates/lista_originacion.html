@@ -40,18 +40,18 @@
 							style="border-collapse: separate;border-spacing: 0 1.2rem;">
 							<thead>
 								<tr>
-									<th>Código</th>
-									<th>Ciudad</th>
-									<th>Departamento</th>
+									<th>Asociado</th>
+									<th>Línea de Crédito</th>
+									<th>Monto</th>
 									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								{% for contacto in object_list %}
 								<tr class="rounded shadow">
-									<td>{{ contacto.codigo }}</td>
-									<td>{{ contacto.nombre }}</td>
-									<td>{{ contacto.departamento }}</td>
+									<td>{{ contacto.asociado }}</td>
+									<td>{{ contacto.lin_cre }}</td>
+									<td>{{ contacto.monto }}</td>
 									<td>
 										<!-- Formulario para eliminar un registro desde la misma tabla HTML -->
 										<form method="POST" action="eliminar/{{contacto.id}}">

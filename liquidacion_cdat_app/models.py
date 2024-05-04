@@ -10,9 +10,9 @@ class CTA_CDAT_LIQ(models.Model):
     cta_amp = models.ForeignKey(CTA_CDAT_AMP, on_delete=models.CASCADE, verbose_name='Cuenta Ampliación')
     fecha = models.DateField(null=True, blank=True, verbose_name='Fecha')
     tip_liq = models.CharField(max_length=1, choices=OPC_LIQ_INT_AHO, verbose_name='Tipo Liquidación')
-    Val_int = models.FloatField(null=True, blank=True, verbose_name='Valor Intereses')
-    Val_ret = models.FloatField(null=True, blank=True, verbose_name='Valor Retefuente')
-    Val_ret_nue = models.FloatField(null=True, blank=True, verbose_name='Valor Retefuente Nueva')
+    val_int = models.FloatField(null=True, blank=True, verbose_name='Valor Intereses')
+    val_ret = models.FloatField(null=True, blank=True, verbose_name='Valor Retefuente')
+    val_ret_nue = models.FloatField(null=True, blank=True, verbose_name='Valor Retefuente Nueva')
     aplicado = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Aplicado?')
     docto = models.ForeignKey(HECHO_ECONO, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Número Documento')
 

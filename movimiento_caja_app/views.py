@@ -22,7 +22,7 @@ from .models import MOV_CAJA
 class Lista(LoginRequiredMixin, ListView):
     model = MOV_CAJA
     form = CrearForm
-    template_name = 'lista_movimientos.html'
+    template_name = 'lista_mov_caja.html'
     ordering = ['oficina', 'codigo']
 
 # Para obtener todos los detalles de un registro
@@ -93,13 +93,24 @@ class ImprimirPDF(LoginRequiredMixin, View):
         # Agregamos contenido al PDF utilizando datos de la base de datos
         # for dato in movimiento:
         # p.drawString(80, 800, f"Oficina: {dato.oficina}")
-        # p.drawString(80, 780, f"Código: {dato.codigo}")
-        # p.drawString(80, 760, f"Centro de Costo: {dato.centro_costo}")
+        # p.drawString(80, 780, f"Fecha: {dato.fecha}")
+        # p.drawString(80, 760, f"Código Cajero: {dato.cod_caj}")
+        # p.drawString(80, 740, f"Jornada: {dato.jornada}")
+        # p.drawString(80, 720, f"Saldo Inicial: {dato.saldo_ini}")
+        # p.drawString(80, 700, f"Movimientos Débitos: {dato.debitos}")
+        # p.drawString(80, 680, f"Movimientos Créditos: {dato.creditos}")
+        # p.drawString(80, 660, f"Valor Cheques Devueltos?: {dato.val_che_dev}")
+        # p.drawString(80, 640, f"Saldo Final: {dato.saldo_fin}")
+        # p.drawString(80, 620, f"Diferencia: {dato.diferencia}")
+        # p.drawString(80, 600, f"Valor Cheques: {dato.val_cheques}")
+        # p.drawString(80, 580, f"Valor Vales: {dato.val_vales}")
+        # p.drawString(80, 560, f"Cierre de Caja?: {dato.cerrado}")
+        # p.drawString(80, 540, f"Dinero en Efectivo: {dato.monedas}")
 
-        datos_tabla = [["Oficina", "Código", "Centro de Costo"]]
+        datos_tabla = [["oficina","fecha","cod_caj","jornada","saldo_ini","debitos","creditos","val_che_dev","saldo_fin","diferencia","val_cheques","val_vales","cerrado","monedas"]]
 
         for dato in movimiento:
-            datos_tabla.append([dato.oficina, dato.codigo, dato.centro_costo])
+            datos_tabla.append([dato.oficina,dato.fecha,dato.cod_caj,dato.jornada,dato.saldo_ini,dato.debitos,dato.creditos,dato.val_che_dev,dato.saldo_fin,dato.diferencia,dato.val_cheques,dato.val_vales,dato.cerrado,dato.monedas])
 
         # Agrega más campos según tus necesidades
 
@@ -143,8 +154,19 @@ class ImprimePDF(LoginRequiredMixin, View):
 
         # Agregamos contenido al PDF utilizando datos de la base de datos
         p.drawString(80, 800, f"Oficina: {dato.oficina}")
-        p.drawString(80, 780, f"Código: {dato.codigo}")
-        p.drawString(80, 760, f"Centro de Costo: {dato.centro_costo}")
+        p.drawString(80, 780, f"Fecha: {dato.fecha}")
+        p.drawString(80, 760, f"Código Cajero: {dato.cod_caj}")
+        p.drawString(80, 740, f"Jornada: {dato.jornada}")
+        p.drawString(80, 720, f"Saldo Inicial: {dato.saldo_ini}")
+        p.drawString(80, 700, f"Movimientos Débitos: {dato.debitos}")
+        p.drawString(80, 680, f"Movimientos Créditos: {dato.creditos}")
+        p.drawString(80, 660, f"Valor Cheques Devueltos?: {dato.val_che_dev}")
+        p.drawString(80, 640, f"Saldo Final: {dato.saldo_fin}")
+        p.drawString(80, 620, f"Diferencia: {dato.diferencia}")
+        p.drawString(80, 600, f"Valor Cheques: {dato.val_cheques}")
+        p.drawString(80, 580, f"Valor Vales: {dato.val_vales}")
+        p.drawString(80, 560, f"Cierre de Caja?: {dato.cerrado}")
+        p.drawString(80, 540, f"Dinero en Efectivo: {dato.monedas}")
 
         # Agrega más campos según tus necesidades
 
@@ -182,8 +204,19 @@ class ExportarView(LoginRequiredMixin, View):
 
         for dato in movimiento:
             p.drawString(80, 800, f"Oficina: {dato.oficina}")
-            p.drawString(80, 780, f"Código: {dato.codigo}")
-            p.drawString(80, 760, f"Centro de Costo: {dato.centro_costo}")
+            p.drawString(80, 780, f"Fecha: {dato.fecha}")
+            p.drawString(80, 760, f"Código Cajero: {dato.cod_caj}")
+            p.drawString(80, 740, f"Jornada: {dato.jornada}")
+            p.drawString(80, 720, f"Saldo Inicial: {dato.saldo_ini}")
+            p.drawString(80, 700, f"Movimientos Débitos: {dato.debitos}")
+            p.drawString(80, 680, f"Movimientos Créditos: {dato.creditos}")
+            p.drawString(80, 660, f"Valor Cheques Devueltos?: {dato.val_che_dev}")
+            p.drawString(80, 640, f"Saldo Final: {dato.saldo_fin}")
+            p.drawString(80, 620, f"Diferencia: {dato.diferencia}")
+            p.drawString(80, 600, f"Valor Cheques: {dato.val_cheques}")
+            p.drawString(80, 580, f"Valor Vales: {dato.val_vales}")
+            p.drawString(80, 560, f"Cierre de Caja?: {dato.cerrado}")
+            p.drawString(80, 540, f"Dinero en Efectivo: {dato.monedas}")
 
             # Agrega más campos según tus necesidades
 

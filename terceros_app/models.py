@@ -12,8 +12,7 @@ class TERCEROS(models.Model):
     doc_ide = models.CharField(max_length=12, null=False, verbose_name='Número Documento')
     dig_ver = models.CharField(max_length=1, blank=True,  null=False, verbose_name='DV')
     nit_rap = models.CharField(max_length=12, blank=True, null=False, verbose_name='Nit Rápido')
-    cod_ciu_exp = models.ForeignKey(
-        LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_exp', null=True, blank=True, verbose_name='Ciudad Expedición Documento')
+    cod_ciu_exp = models.ForeignKey(LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_exp', null=True, blank=True, verbose_name='Ciudad Expedición Documento')
     cod_ciu_res = models.ForeignKey(LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_res', null=True, blank=True, verbose_name='Ciudad Residencia' )
     regimen = models.CharField(max_length=12, choices=OPC_REGIMEN, verbose_name='Tipo Régimen')
     fec_exp_ced = models.DateField(null=True, blank=True, verbose_name='Fecha Expedición Documento')
@@ -28,11 +27,7 @@ class TERCEROS(models.Model):
     tel_ofi = models.CharField(max_length=10, null=True, verbose_name='Teléfono Oficina')
     tel_res = models.CharField(max_length=10, null=True, verbose_name='Teléfono Residencia')
     id_ds = models.BigIntegerField(null=True, blank=True, db_index=True)
-    celular1 = models.CharField(
-        max_length=10,
-        validators=[validate_numeric],
-        help_text='El número de celular debe contener exactamente 10 dígitos numéricos.',
-        null=True, verbose_name='Celular 1')
+    celular1 = models.CharField(max_length=10,validators=[validate_numeric],help_text='El número de celular debe contener exactamente 10 dígitos numéricos.',null=True, verbose_name='Celular 1')
     celular2 = models.CharField(max_length=10, null=True, verbose_name='Celular 2')
     fax = models.CharField(max_length=10, null=True, verbose_name='Fax')
     email = models.EmailField(verbose_name='e-mail')

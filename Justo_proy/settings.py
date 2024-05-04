@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'contabilizacion_capital_creditos_app',
     'contabilizacion_intereses_creditos_app',
     'contabilizacion_lineas_ahorros_app',
-    # 'creditos_app',
+    'creditos_app',
     'ctas_ahorros_app',
     'cuentas_app',
     'destino_credito_app',
@@ -122,28 +122,29 @@ WSGI_APPLICATION = 'Justo_proy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'JustoWare',
+#         'USER': 'root',
+#         'PASSWORD': 'MariaDB2023',
+#         'HOST': 'localhost',
+#         'PORT': '2023',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'JustoWare',
+        'NAME': 'justoware_BD',
         'USER': 'root',
         'PASSWORD': 'MariaDB2023',
         'HOST': 'localhost',
         'PORT': '2023',
+
     }
 }
-
-
-# DATABASES = {
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.mysql',
-#     #     'NAME': 'justoware_BD',
-#     #     'USER': 'root',
-#     #     'PASSWORD': 'MariaDB2023',
-#     #     'HOST': 'localhost',
-#     #     'PORT': '2023',
-
-#     # }
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',

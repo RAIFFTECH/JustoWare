@@ -10,6 +10,10 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from reportlab.pdfgen import canvas
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+
 from django import forms
 from .forms import CrearForm
 from .models import RET_FUE_AHO
@@ -71,27 +75,49 @@ class ImprimirPDF(View):
     def get(self, request, *args, **kwargs):
         # Recupera los datos de la base de datos
         # Asegúrate de adaptar esto a tu modelo y consulta específicos
-        retefuente_ahorros = RET_FUE_AHO.objects.all()
+        retefuente_ahorros = RET_FUE_AHO.objects.all().order_by('lin_aho', 'fecha_inicial')
 
         # Creamos un objeto HttpResponse con el tipo de contenido PDF
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="retefuente_ahorros.pdf"'
 
         # Creamos un objeto PDF con ReportLab
-        p = canvas.Canvas(response)
+        # p = canvas.Canvas(response)
+        p = canvas.Canvas(response, pagesize=letter)
 
         # Agregamos contenido al PDF utilizando datos de la base de datos
+        # for dato in retefuenteaho:
+        # p.drawString(80, 800, f"Línea de Ahorro: {dato.lin_aho}")
+        # p.drawString(80, 780, f"Fecha Inicial: {dato.fecha_inicial}")
+        # p.drawString(80, 760, f"Fecha Final: {dato.fecha_final}")
+        # p.drawString(80, 740, f"Base Liquidación Intereses: {dato.bas_liq_int}")
+        # p.drawString(80, 720, f"Tasa Liquidación Retefuente: {dato.tas_liq_rf}")
+
+        datos_tabla = [["lin_aho", "fecha_inicial", "fecha_final", "bas_liq_int", "tas_liq_rf"]]
+
         for dato in retefuente_ahorros:
-            p.drawString(80, 800, f"Línea de Ahorro: {dato.lin_aho}")
-            p.drawString(80, 780, f"Fecha Inicial: {dato.fecha_inicial}")
-            p.drawString(80, 760, f"Fecha Final: {dato.fecha_final}")
-            p.drawString(80, 740, f"Base Liquidación Intereses: {dato.bas_liq_int}")
-            p.drawString(80, 720, f"Tasa Liquidación Retefuente: {dato.tas_liq_rf}")
+            datos_tabla.append([dato.lin_aho, dato.fecha_inicial, dato.fecha_final,dato.bas_liq_int, dato.tas_liq_rf])
 
-            # Agrega más campos según tus necesidades
+        # Agrega más campos según tus necesidades
 
-            # Agrega un salto de página para el siguiente conjunto de datos
-            p.showPage()
+        tabla = Table(datos_tabla)
+
+        # estilo_tabla = TableStyle([('BACKGROUND', (0, 0), (-1, 0), '#06153C'),
+        #                            ('TEXTCOLOR', (0, 0), (-1, 0), (255, 255, 255)),
+        #                            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        #                            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        #                            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        #                            ('BACKGROUND', (0, 1), (-1, -1), '#f7f7f7'),
+        #                            ('GRID', (0, 0), (-1, -1), 1, '#06153C')])
+
+        # tabla.setStyle(estilo_tabla)
+
+        # Dibujamos la tabla en el PDF
+        tabla.wrapOn(p, 0, 0)
+        tabla.drawOn(p, 30, 600)
+
+        # Agrega un salto de página para el siguiente conjunto de datos
+        p.showPage()
 
         # Cierra el objeto PDF y devuelve la respuesta
         p.save()

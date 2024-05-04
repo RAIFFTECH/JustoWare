@@ -47,7 +47,7 @@ class Crear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     # Redirigimos a la página principal tras insertar el registro
     def get_success_url(self):
-        return reverse('listar_interes_creditos')
+        return reverse('listar_con_lin_aho')
 
 # Para modificar un registro
 class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -60,7 +60,7 @@ class Actualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     # Redireccionamos a la página principal tras actualizar el registro
     def get_success_url(self):
-        return reverse('listar_interes_creditos')
+        return reverse('listar_con_lin_aho')
 
 # Para eliminar un registro
 class Eliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -73,7 +73,7 @@ class Eliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         # Mensaje que se mostrará cuando se elimine el registro
         success_message = 'Registro eliminado correctamente.'
         messages.success(self.request, (success_message))
-        return reverse('listar_interes_creditos')
+        return reverse('listar_con_lin_aho')
 
 # Para imprimir los registros
 class ImprimirPDF(LoginRequiredMixin, View):
