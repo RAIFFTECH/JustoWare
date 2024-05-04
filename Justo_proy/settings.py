@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,14 +32,61 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'colorfield',
+    'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ampliacion_cdat_app',
+    'aportes_app',
+    'asociados_app',
+    'cambios_creditos_app',
+    'categorias_creditos_app',
+    'causacion_creditos_app',
+    'cdat_app',
+    'centrocostos_app',
+    'cierre_mensual_app',
+    'clientes_app',
+    'conceptos_app',
+    'contabilizacion_capital_creditos_app',
+    'contabilizacion_intereses_creditos_app',
+    'contabilizacion_lineas_ahorros_app',
+    'creditos_app',
+    'ctas_ahorros_app',
+    'cuentas_app',
+    'destino_credito_app',
+    'detalle_economico_app',
+    'detalle_producto_app',
+    'documentos_app',
+    'estados_financieros_app',
+    'hecho_economico_app',
+    'historico_ctas_ahorros_app',
     'justo_app',
+    'lineas_ahorro_app',
+    'lineas_credito_app',
+    'liquidacion_cdat_app',    
+    'localidades_app',
+    'movimiento_caja_app',
+    'oficinas_app',
+    'originacion_app',
+    'pagadores_app',
+    'retefuente_ahorros_app',
+    'tasas_lin_aho_app',
+    'terceros_app',
+    'usuarios_app',
+
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+X_FRAM_OPTIONS = "SAMEORIGIN"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,3 +174,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Define la ruta de la carpeta 'assets' dentro del directorio principal
+ASSETS_DIR = os.path.join(BASE_DIR, 'assets')
+STATICFILES_DIRS = [
+    ASSETS_DIR,
+]
