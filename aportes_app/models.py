@@ -3,7 +3,7 @@ from oficinas_app.models import OFICINAS
 # Create your models here.
 
 class PLAN_APORTES(models.Model):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE, verbose_name='Oficina')
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT, verbose_name='Oficina')
     agno = models.IntegerField(blank=True, null=True, verbose_name='Año')
     meses = models.IntegerField(blank=True, null=True, verbose_name='Meses')
     iniadu = models.FloatField(blank=True, null=True, verbose_name='IniAdu')

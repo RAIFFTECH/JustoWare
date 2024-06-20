@@ -4,7 +4,7 @@ from justo_app.opciones import OPC_BOOL
 # Create your models here.
 
 class MOV_CAJA(models.Model):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE, null=True, verbose_name='Oficina')
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT, null=True, verbose_name='Oficina')
     fecha = models.DateField(null=True, blank=True, verbose_name='Fecha')
     cod_caj = models.CharField(max_length=2, null=False, verbose_name='Código Cajero')
     jornada = models.CharField(max_length=1, null=False, verbose_name='Jornada')

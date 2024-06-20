@@ -6,8 +6,8 @@ from terceros_app.models import TERCEROS
 
 # Create your models here.
 class ESTADOS_FIN(DefaultToZeroMixin):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, null=False, verbose_name='Cliente')
-    tercero = models.ForeignKey(TERCEROS, on_delete=models.CASCADE, null=True, verbose_name='Tercero')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, null=False, verbose_name='Cliente')
+    tercero = models.ForeignKey(TERCEROS, on_delete=models.PROTECT, null=True, verbose_name='Tercero')
     fec_inf = models.DateField(null=True, blank=True, verbose_name='Fecha Información')
     ing_sal_fij = models.FloatField(blank=True, null=True, verbose_name='Ingresos por Salario Fijo')
     ing_hon = models.FloatField(blank=True, null=True, verbose_name='Ingresos por Honorarios')

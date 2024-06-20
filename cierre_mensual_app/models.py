@@ -2,7 +2,7 @@ from django.db import models
 from oficinas_app.models import OFICINAS,OPC_BOOL
 # Create your models here.
 class CIERRE_MES(models.Model):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE, null=True, verbose_name='Oficina')
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT, null=True, verbose_name='Oficina')
     fecha = models.DateField(null=True, blank=True, verbose_name='Fecha')
     protegido = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Protegido?')
     tot_deb = models.FloatField(null = True,blank = True, verbose_name='Total Débito')

@@ -2,6 +2,7 @@ import csv
 from openpyxl import Workbook
 from django.views import View
 from django.http import HttpResponse
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -21,6 +22,14 @@ class Lista(LoginRequiredMixin, ListView):
     model = TERCEROS
     form = CrearForm
     template_name = 'lista_terceros.html'
+
+# Para buscar por nombre del tercero
+def Buscar(request):
+    resultados = None
+    if 'q' in request.GET:
+        query = request.GET['q']
+        resultados = TERCEROS.objects.filter(Q(nombre__icontains=query) | Q(doc_ide__icontains=query) | Q(celular1__icontains=query) | Q(email__icontains=query))
+    return render(request, 'lista_terceros.html', {'resultados': resultados})
 
 # Para obtener todos los detalles de un registro
 class Detalles(LoginRequiredMixin, DetailView):

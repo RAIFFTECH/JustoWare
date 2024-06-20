@@ -4,7 +4,7 @@ from justo_app.opciones import OPC_BOOL, OPC_NAT,OPC_TIP_CTA
 # Create your models here.
 
 class PLAN_CTAS(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE,verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT,verbose_name='Cliente')
     per_con = models.IntegerField(blank=True, null=True,verbose_name='Periodo Contable')
     cod_cta = models.CharField(max_length=10, null=True,verbose_name='Código Cuenta')
     nom_cta = models.CharField(max_length=64, null=True,verbose_name='Nombre Cuenta')

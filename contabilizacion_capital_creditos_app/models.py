@@ -3,7 +3,7 @@ from clientes_app.models import CLIENTES
 # Create your models here.
 
 class IMP_CON_CRE(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, verbose_name='Cliente')
     cod_imp = models.CharField(max_length=2, null=True, verbose_name='Código')
     descripcion = models.CharField(max_length=40, null=True, verbose_name='Descripción')
     kpte_cap = models.CharField(max_length=10, null=True, verbose_name='Cuenta Puente Capital')

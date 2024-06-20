@@ -7,13 +7,13 @@ from clientes_app.models import CLIENTES
 from localidades_app.models import LOCALIDADES
 
 class TERCEROS(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, verbose_name='Cliente')
     cla_doc = models.CharField(max_length=1, choices=OPC_CLASEDOC, verbose_name='Tipo Documento')
     doc_ide = models.CharField(max_length=12, null=False, verbose_name='Número Documento')
     dig_ver = models.CharField(max_length=1, blank=True,  null=False, verbose_name='DV')
     nit_rap = models.CharField(max_length=12, blank=True, null=False, verbose_name='Nit Rápido')
-    cod_ciu_exp = models.ForeignKey(LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_exp', null=True, blank=True, verbose_name='Ciudad Expedición Documento')
-    cod_ciu_res = models.ForeignKey(LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_res', null=True, blank=True, verbose_name='Ciudad Residencia' )
+    cod_ciu_exp = models.ForeignKey(LOCALIDADES, on_delete=models.PROTECT, related_name='ciu_exp', null=True, blank=True, verbose_name='Ciudad Expedición Documento')
+    cod_ciu_res = models.ForeignKey(LOCALIDADES, on_delete=models.PROTECT, related_name='ciu_res', null=True, blank=True, verbose_name='Ciudad Residencia' )
     regimen = models.CharField(max_length=12, choices=OPC_REGIMEN, verbose_name='Tipo Régimen')
     fec_exp_ced = models.DateField(null=True, blank=True, verbose_name='Fecha Expedición Documento')
     tip_ter = models.CharField(max_length=12, choices=OPC_TIPTER, verbose_name='Tipo Tercero')
@@ -52,5 +52,5 @@ class TERCEROS(models.Model):
 
     
     def __str__(self):
-        return self.doc_ide + ' ' + self.nombre
+        return self.nombre + ' ' + self.doc_ide
     

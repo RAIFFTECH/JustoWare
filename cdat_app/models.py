@@ -3,7 +3,7 @@ from ctas_ahorros_app.models import CTAS_AHORRO, OPC_BOOL
 # Create your models here.
 
 class CTA_CDAT(models.Model):
-    cta_aho = models.ForeignKey(CTAS_AHORRO, on_delete=models.CASCADE, verbose_name='Cuenta de Ahorro')
+    cta_aho = models.ForeignKey(CTAS_AHORRO, on_delete=models.PROTECT, verbose_name='Cuenta de Ahorro')
     ampliacion = models.IntegerField(verbose_name='Ampliación')
     valor = models.FloatField(null=True, blank=True, verbose_name='Valor')
     fecha = models.DateField(null=True, blank=True, verbose_name='Fecha')

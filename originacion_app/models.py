@@ -3,7 +3,7 @@ from asociados_app.models import ASOCIADOS
 
 # Create your models here.
 class ORIGINACION(models.Model):
-    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.CASCADE, verbose_name='Asociado')
+    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.PROTECT, verbose_name='Asociado')
     lin_cre = models.CharField(max_length=80, null=False, verbose_name='Línea de Crédito')
     monto = models.FloatField(blank=True, null=True, verbose_name='Monto')
     plazo = models.IntegerField(blank=True, null=True, verbose_name='Plazo')

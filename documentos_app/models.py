@@ -3,7 +3,7 @@ from oficinas_app.models import OFICINAS, OPC_BOOL
 
 # Create your models here.
 class DOCTO_CONTA(models.Model):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE,verbose_name='Oficina')
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT,verbose_name='Oficina')
     per_con = models.IntegerField(blank=True, null=True,verbose_name='Periodo Contable')
     codigo = models.IntegerField(blank=False, null=False,verbose_name='Código Documento')
     nom_cto = models.CharField(max_length=12, null=False,verbose_name='Nombre Corto')
@@ -19,4 +19,16 @@ class DOCTO_CONTA(models.Model):
         db_table = 'docto_conta'
     
     def __str__(self):
-        return self.codigo+' '+self.nombre
+        return self.nombre
+
+
+class XDOC_ZEP(models.Model):
+    per_con = models.IntegerField()
+    clase_zep = models.CharField(max_length=1, null=False)
+    doc_ds = models.IntegerField(null=True)
+    nombre = models.CharField(max_length=16, null=False, blank=True)
+    descripcion = models.CharField(max_length=36, null=False, blank=True)
+
+    class Meta:
+        unique_together = [['per_con', 'clase_zep']]
+        db_table = 'xdoc_zep'

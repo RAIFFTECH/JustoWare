@@ -2,7 +2,7 @@ from django.db import models
 from clientes_app.models import CLIENTES
 # Create your models here.
 class LINEAS_CREDITO(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, verbose_name='Cliente')
     cod_lin_cre = models.IntegerField(verbose_name='Código')
     descripcion = models.CharField(max_length=44,null = True, verbose_name='Descripción')
     tas_int_anu = models.FloatField(null = True, verbose_name='Tasa Interés Anual')

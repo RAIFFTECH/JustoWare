@@ -26,7 +26,8 @@
 				<form class="formulario_contacto" method="post" enctype="multipart/form-data" class="row gx-4">
 					<!-- Token de seguridad para poder crear un nuevo registro -->
 					{% csrf_token %}
-					<div class="col-md-12">
+					<div class="row">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.cliente|as_crispy_field }}
 							{% if form.cliente.help_text %}
@@ -41,7 +42,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.cla_doc|as_crispy_field }}
 							{% if form.cla_doc.help_text %}
@@ -56,7 +57,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.doc_ide|as_crispy_field }}
 							{% if form.doc_ide.help_text %}
@@ -71,7 +72,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.dig_ver|as_crispy_field }}
 							{% if form.dig_ver.help_text %}
@@ -86,7 +87,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.nit_rap|as_crispy_field }}
 							{% if form.nit_rap.help_text %}
@@ -101,7 +102,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.cod_ciu_exp|as_crispy_field }}
 							{% if form.cod_ciu_exp.help_text %}
@@ -116,7 +117,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.cod_ciu_res|as_crispy_field }}
 							{% if form.cod_ciu_res.help_text %}
@@ -131,7 +132,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.regimen|as_crispy_field }}
 							{% if form.regimen.help_text %}
@@ -146,7 +147,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.fec_exp_ced|as_crispy_field }}
 							{% if form.fec_exp_ced.help_text %}
@@ -161,7 +162,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.tip_ter|as_crispy_field }}
 							{% if form.tip_ter.help_text %}
@@ -176,7 +177,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.pri_ape|as_crispy_field }}
 							{% if form.pri_ape.help_text %}
@@ -191,7 +192,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.seg_ape|as_crispy_field }}
 							<script>
@@ -209,7 +210,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.pri_nom|as_crispy_field }}
 							<script>
@@ -227,7 +228,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.seg_nom|as_crispy_field }}
 							{% if form.seg_nom.help_text %}
@@ -242,7 +243,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.raz_soc|as_crispy_field }}
 							{% if form.raz_soc.help_text %}
@@ -257,7 +258,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.direccion|as_crispy_field }}
 							{% if form.direccion.help_text %}
@@ -272,7 +273,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.cod_pos|as_crispy_field }}
 							{% if form.cod_pos.help_text %}
@@ -287,7 +288,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.tel_ofi|as_crispy_field }}
 							{% if form.tel_ofi.help_text %}
@@ -302,7 +303,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.tel_res|as_crispy_field }}
 							{% if form.tel_res.help_text %}
@@ -317,7 +318,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.celular1|as_crispy_field }}
 							{% if form.celular1.help_text %}
@@ -332,7 +333,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.celular2|as_crispy_field }}
 							{% if form.celular2.help_text %}
@@ -347,7 +348,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.fax|as_crispy_field }}
 							{% if form.fax.help_text %}
@@ -362,7 +363,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.email|as_crispy_field }}
 							{% if form.email.help_text %}
@@ -377,7 +378,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.nombre|as_crispy_field }}
 							{% if form.nombre.help_text %}
@@ -392,7 +393,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.fec_act|as_crispy_field }}
 							{% if form.fec_act.help_text %}
@@ -407,7 +408,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.observacion|as_crispy_field }}
 							{% if form.observacion.help_text %}
@@ -422,7 +423,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.per_pub_exp|as_crispy_field }}
 							{% if form.per_pub_exp.help_text %}
@@ -437,7 +438,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							{{ form.nit_interno|as_crispy_field }}
 							{% if form.nit_interno.help_text %}
@@ -451,6 +452,7 @@
 							</div>
 							{% endif %}
 						</div>
+					</div>
 					</div>
 					<button type="submit" title="Guardar" class="btn btn-light rounded-pill"><i
 							class="bi bi-floppy"></i> Guardar</button>

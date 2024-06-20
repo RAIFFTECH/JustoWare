@@ -36,40 +36,49 @@
 			<div class="card-body">
 				<div class="row mb-0">
 					<div class="col-12 mb-0">
+						<form method="GET" action="{% url 'buscar_terceros' %}">
+							<input type="text" name="q" placeholder="Criterio de Búsqueda..." style="border: 1px solid #0429fa; padding: 8px; border-radius: 5px;">
+							<button type="submit" class="btn btn-light rounded-pill"><i	class="bi bi-search-heart-fill"></i> Buscar</button>
+						</form>
+						<br>
+						<div class="table-responsive">
 						<table id="order-listing" class="table table-borderless g-3 px-3"
-							style="border-collapse: separate;border-spacing: 0 1.2rem;">
+							style="border-collapse: separate;border-spacing: 0 1.2rem;" overflow-y: auto;>
 							<thead>
 								<tr>
 									<th>Documento</th>
 									<th>Nombre</th>
+									<th>Razón Social</th>
 									<th>e-mail</th>
 									<th>Celular 1</th>
-									<th>Dirección</th>
-									<th>Ciudad</th>
+									<!-- <th>Dirección</th>
+									<th>Ciudad</th> -->
 									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for contacto in object_list %}
+								{% if resultados %}
+								{% for contacto in resultados %}
 								<tr class="rounded shadow">
 									<td>{{ contacto.doc_ide }}</td>
 									<td>{{ contacto.nombre }}</td>
+									<td>{{ contacto.raz_soc }}</td>
 									<td>{{ contacto.email }}</td>
 									<td>{{ contacto.celular1 }}</td>
-									<td>{{ contacto.direccion }}</td>
-									<td>{{ contacto.cod_ciu_res }}</td>
+									<!-- <td>{{ contacto.direccion }}</td>
+									<td>{{ contacto.cod_ciu_res }}</td> -->
 									<td>
 										<!-- Formulario para eliminar un registro desde la misma tabla HTML -->
-										<form method="POST" action="eliminar/{{contacto.id}}">
+										<form method="POST" action="./eliminar/{{contacto.id}}">
 											{% csrf_token %}
 											<div class="btn-group">
 												<!-- Creamos 4 botones Detalle, Editar, Imprimir y Eliminar -->
-												<a href="actualizar/{{contacto.id}}" title="Editar" type="button"
+												<a href="./actualizar/{{contacto.id}}" title="Editar" type="button"
 													class="btn btn-light rounded-pill"><i
 														class="bi bi-pencil-square"></i></a>
-												<a href="detalles/{{contacto.id}}" title="Detalle" type="button"
+												<a href="./detalles/{{contacto.id}}" title="Detalle" type="button"
 													class="btn btn-light rounded-pill"><i class="bi bi-eye"></i></a>
-												<a href="imprime/{{contacto.id}}" target="_blank" title="Imprimir"
+												<a href="./imprime/{{contacto.id}}" target="_blank" title="Imprimir"
 													type="button" class="btn btn-light rounded-pill"><i
 														class="bi bi-printer-fill"></i>
 												</a> <button title="Eliminar" class="btn btn-light rounded-pill"
@@ -80,8 +89,14 @@
 									</td>
 								</tr>
 								{% endfor%}
+								{% else %}
+								<tr>
+									<td colspan="4">No se encontraron resultados.</td>
+								</tr>
+								{% endif %}
 							</tbody>
 						</table>
+						</div>
 					</div>
 				</div>
 			</div>

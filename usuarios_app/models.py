@@ -4,7 +4,7 @@ from justo_app.opciones import OPC_BOOL
 # Create your models here.
 
 class USUARIOS(models.Model):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE, null=True, verbose_name='Oficina')
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT, null=True, verbose_name='Oficina')
     login = models.CharField(max_length=16, null=False, verbose_name='Nombre Usuario')
     nit = models.CharField(max_length=12, null=True, verbose_name='Identificación')
     nombre = models.CharField(max_length=44, null=True, verbose_name='Nombre Completo')

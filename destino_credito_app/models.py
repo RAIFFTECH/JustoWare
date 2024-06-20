@@ -2,7 +2,7 @@ from django.db import models
 from clientes_app.models import CLIENTES
 # Create your models here.
 class DESTINO_CRE(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, verbose_name='Cliente')
     codigo = models.IntegerField(verbose_name='Código')
     descripcion = models.CharField(max_length=50, null=True,verbose_name='Descripción')
 

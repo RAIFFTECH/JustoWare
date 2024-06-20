@@ -24,6 +24,29 @@ class Lista(LoginRequiredMixin, ListView):
     form = CrearForm
     template_name = 'lista_cuentas.html'
     ordering = ['cliente','per_con','cod_cta']
+    # ordering = ['cod_cta']
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     # Obtener el valor de cliente desde la URL o el formulario
+    #     cliente = self.request.GET.get('cliente')
+    #     cliente = 1      
+    #     # Obtener el valor de per_con desde la URL o el formulario
+    #     per_con = self.request.GET.get('per_con')
+    #     per_con = 2024
+    #     # Aplicar filtros si los parámetros están presentes
+    #     if cliente is not None:
+    #         queryset = queryset.filter(cliente=cliente)
+    #     if per_con is not None:
+    #         queryset = queryset.filter(per_con=per_con)
+    #         # ordering = ['cod_cta']
+
+    #     return queryset.order_by('cod_cta')
+    # resultados = PLAN_CTAS.objects.filter(cliente=1, per_con='2024')
+    # resultado = resultados.order_by('cod_cta')
+
+    # resultados_filtrados = PLAN_CTAS.objects.filter(cliente=1, per_con=2024).order_by('cod_cta')
+    
 
 
 # Para obtener todos los detalles de un registro

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Restaurar Copia de Seguridad</title>
+</head>
+
+<body>
+	<h2>Restaurar Copia de Seguridad</h2>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<label for="backup_filename">Selecciona la copia de seguridad a restaurar:</label><br>
+		<select name="backup_filename">
+			{% for backup in backups %}
+			<option value="{{ backup.filename }}">{{ backup.filename }}</option>
+			{% endfor %}
+		</select><br><br>
+		<button type="submit">Restaurar</button>
+	</form>
+</body>
+
+</html>

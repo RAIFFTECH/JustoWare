@@ -8,7 +8,7 @@ from localidades_app.models import LOCALIDADES
 
 
 class OFICINAS(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, verbose_name='Cliente')
     codigo = models.CharField(max_length=5, null=False, verbose_name='Código Oficina')
 
     @property

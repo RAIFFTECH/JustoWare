@@ -9,11 +9,11 @@ from justo_app.opciones import OPC_CRE_TERMINO, OPC_CRE_FOR_PAG, OPC_BOOL, OPC_E
 
 # Create your models here.
 class CREDITOS(models.Model):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE,verbose_name='Oficina')
-    imputacion = models.ForeignKey(IMP_CON_CRE, on_delete=models.CASCADE, null=True,verbose_name='Contabilización')
-    cod_lin_cre = models.ForeignKey(LINEAS_CREDITO, on_delete=models.CASCADE, null=True, verbose_name='Línea de Crédito')
-    socio = models.ForeignKey(ASOCIADOS, on_delete=models.CASCADE, null=True,verbose_name='Asociado')
-    com_des = models.ForeignKey(DETALLE_PROD, on_delete=models.CASCADE, null=True,verbose_name='Comprobante Desembolso')
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT,verbose_name='Oficina')
+    imputacion = models.ForeignKey(IMP_CON_CRE, on_delete=models.PROTECT, null=True,verbose_name='Contabilización')
+    cod_lin_cre = models.ForeignKey(LINEAS_CREDITO, on_delete=models.PROTECT, null=True, verbose_name='Línea de Crédito')
+    socio = models.ForeignKey(ASOCIADOS, on_delete=models.PROTECT, null=True,verbose_name='Asociado')
+    com_des = models.ForeignKey(DETALLE_PROD, on_delete=models.PROTECT, null=True,verbose_name='Comprobante Desembolso')
     cod_cre = models.CharField(max_length=10, null=True,verbose_name='Código Crédito')
     libranza = models.CharField(max_length=10, null=True,verbose_name='Libranza')
     pagare = models.CharField(max_length=16, null=True,verbose_name='Pagaré')
@@ -56,9 +56,9 @@ class CREDITOS(models.Model):
 
 
 class CODEUDORES(models.Model):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE)
-    credito = models.ForeignKey(CREDITOS, on_delete=models.CASCADE)
-    tercero = models.ForeignKey(TERCEROS, on_delete=models.CASCADE)
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT)
+    credito = models.ForeignKey(CREDITOS, on_delete=models.PROTECT)
+    tercero = models.ForeignKey(TERCEROS, on_delete=models.PROTECT)
 
     class Meta:
         unique_together = [['oficina', 'credito', 'tercero']]

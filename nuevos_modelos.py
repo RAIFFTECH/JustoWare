@@ -1010,7 +1010,6 @@ class CREDITOS_CAUSA(models.Model):
         db_table = 'creditos_causa'
 
 class DESTINO_CRE(models.Model):
-    id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE)
     codigo = models.IntegerField()
     descripcion = models.CharField(max_length=50,null = True)
@@ -1019,7 +1018,6 @@ class DESTINO_CRE(models.Model):
         db_table = 'destino_cre' 
 
 class CAT_DES_DIA_CRE(models.Model):
-    id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE)
     codigo = models.IntegerField()
     categoria = models.CharField(max_length=1,null = False,choices=OPC_CRE_CATEGORIA)
@@ -1030,7 +1028,6 @@ class CAT_DES_DIA_CRE(models.Model):
         db_table = 'cat_des_dia_cre' 
     
 class GAR_NO_IDONEA(models.Model):
-    id = models.BigAutoField(primary_key=True)
     oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE)
     credito = models.ForeignKey(CREDITOS, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=1,null = False,default = 'C')

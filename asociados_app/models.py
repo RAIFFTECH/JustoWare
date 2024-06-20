@@ -9,9 +9,9 @@ from justo_app.models import DefaultToZeroMixin
 # Create your models here.
 
 class ASOCIADOS(DefaultToZeroMixin):
-    oficina = models.ForeignKey(OFICINAS, on_delete=models.CASCADE, null=True, verbose_name='Oficina')
+    oficina = models.ForeignKey(OFICINAS, on_delete=models.PROTECT, null=True, verbose_name='Oficina')
     cod_aso = models.CharField(max_length=12, null=False, verbose_name='Código Asociado')
-    tercero = models.ForeignKey(TERCEROS, on_delete=models.CASCADE, null=True, verbose_name='Tercero')
+    tercero = models.ForeignKey(TERCEROS, on_delete=models.PROTECT, null=True, verbose_name='Tercero')
     sexo = models.CharField(max_length=1, choices=OPC_SEXO, verbose_name='Sexo')
     est_civ = models.CharField(max_length=1, choices=OPC_EST_CIV, verbose_name='Estado Civil')
     fec_nac = models.DateField(null=True, blank=True, verbose_name='Fecha Nacimiento')
@@ -22,7 +22,7 @@ class ASOCIADOS(DefaultToZeroMixin):
     estrato = models.CharField(max_length=1, null=True, blank=True, verbose_name='Estrato')
     niv_est = models.CharField(max_length=1, choices=OPC_EDUCACION, verbose_name='Nivel de Estudio')
     cab_fam = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Cabeza de Familia?')
-    id_pag = models.ForeignKey(PAGADORES, on_delete=models.CASCADE, null=True, verbose_name='Empresa Nominadora')
+    id_pag = models.ForeignKey(PAGADORES, on_delete=models.PROTECT, null=True, verbose_name='Empresa Nominadora')
     fec_afi = models.DateField(null=True, blank=True, verbose_name='Fecha Afiliación')
     cargo_emp = models.CharField(max_length=36, null=True, verbose_name='Cargo en la Empresa')
     per_a_cargo = models.IntegerField(null=True, blank=True, verbose_name='Personas a Cargo')
@@ -34,7 +34,7 @@ class ASOCIADOS(DefaultToZeroMixin):
     fec_ing_tra = models.DateField(null=True, blank=True, verbose_name='Fecha Ingreso Trabajo')
     tel_tra = models.CharField(max_length=10, null=True, verbose_name='Teléfono Trabajo')
     tip_sal = models.CharField(max_length=18, null=True, verbose_name='Tipo de Salario')
-    ciu_tra = models.ForeignKey(LOCALIDADES, on_delete=models.CASCADE, related_name='ciu_tra',verbose_name='Ciudad de Trabajo', null=True)
+    ciu_tra = models.ForeignKey(LOCALIDADES, on_delete=models.PROTECT, related_name='ciu_tra',verbose_name='Ciudad de Trabajo', null=True)
     act_eco = models.CharField(max_length=24, null=True, verbose_name='Actividad Económica')
     cod_ciiu = models.CharField(max_length=12, null=True, verbose_name='Código CIIU')
     tip_con = models.CharField(max_length=18, null=True, verbose_name='Tipo Contrato')
@@ -77,7 +77,7 @@ class ASOCIADOS(DefaultToZeroMixin):
 
 
 class ASO_BENEF(models.Model):
-    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.CASCADE, verbose_name='Asociado')
+    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.PROTECT, verbose_name='Asociado')
     cla_doc = models.CharField(max_length=1, choices=OPC_CLASEDOC, verbose_name='Clase Documento')
     doc_ide = models.CharField(max_length=12, null=False, verbose_name='Documento')
     nombre = models.CharField(max_length=64, null=False, verbose_name='Nombre Completo')
@@ -94,7 +94,7 @@ class ASO_BENEF(models.Model):
 
 
 class ASO_REFERENCIAS(models.Model):
-    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.CASCADE, verbose_name='Asociado')
+    asociado = models.ForeignKey(ASOCIADOS, on_delete=models.PROTECT, verbose_name='Asociado')
     tipo_ref = models.CharField(max_length=1, choices=OPC_REFERENCIAS, verbose_name='Tipo Referencia')
     parentesco = models.CharField(max_length=1, choices=OPC_PARENTESCO, verbose_name='Parentesco')
     nombre = models.CharField(max_length=64, null=False, verbose_name='Nombre Completo')

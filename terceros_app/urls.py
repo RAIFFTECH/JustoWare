@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
-from .views import Crear, Lista, Detalles, Actualizar, Eliminar, ImprimirPDF, ImprimePDF, ExportarView
+from .views import Crear, Lista, Detalles, Actualizar, Eliminar, ImprimirPDF, ImprimePDF, ExportarView, Buscar
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -10,6 +10,9 @@ urlpatterns = [
 
     # Para mostrar todos los registros en una tabla
     path('lista/', Lista.as_view(), name='listar_terceros'),
+
+    # Para buscar todos los registros en una tabla
+    path('lista/buscar', Buscar, name='buscar_terceros'),
 
     # Para mostrar una página con el detalle del registro
     path('lista/detalles/<int:pk>', Detalles.as_view(), name='detalles'),

@@ -1,12 +1,15 @@
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
-from .views import Crear, Lista, Detalles, Actualizar, Eliminar, ImprimirPDF, ImprimePDF, ExportarView
+from .views import Crear, Lista, Detalles, Actualizar, Eliminar, ImprimirPDF, ImprimePDF, ExportarView, Buscar
 from django.conf.urls.static import static
 
 urlpatterns = [
     # Para mostrar formulario de alta de nuevo registro
     path('crear/', Crear.as_view(), name='crear'),
+
+    # Para buscar todos los registros en una tabla
+    path('lista/buscar', Buscar, name='buscar_asociados'),
 
     # Para mostrar todos los registros en una tabla
     path('lista/', Lista.as_view(), name='listar_asociados'),

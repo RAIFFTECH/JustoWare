@@ -4,7 +4,7 @@ from justo_app.opciones import OPC_BOOL
 # Create your models here.
 
 class CONCEPTOS(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, null=True, verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, null=True, verbose_name='Cliente')
     cod_con = models.CharField(max_length=8, null=False, verbose_name='Código Concepto')
     con_justo = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Concepto Justo')
     descripcion = models.CharField(max_length=44, null=False, verbose_name='Descripción')
@@ -16,7 +16,7 @@ class CONCEPTOS(models.Model):
     debito = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Concepto Débito?')
     credito = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Concepto Crédito?')
     por_tercero = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Usa Tercero?')
-    por_ret_fue = models.CharField(max_length=1, choices=OPC_BOOL, verbose_name='Usa Retefuente?')
+    por_ret_fue = models.FloatField(null=True, blank=True, verbose_name='% Retefuente?')
 
     class Meta:
         unique_together = [['cliente', 'cod_con']]

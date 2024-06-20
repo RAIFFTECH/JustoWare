@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'ampliacion_cdat_app',
     'aportes_app',
     'asociados_app',
+    'backup_bd',
     'cambios_creditos_app',
     'categorias_creditos_app',
     'causacion_creditos_app',
@@ -137,7 +139,7 @@ WSGI_APPLICATION = 'Justo_proy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'justoware_BD',
+        'NAME': 'otra',
         'USER': 'root',
         'PASSWORD': 'MariaDB2023',
         'HOST': 'localhost',
@@ -147,7 +149,7 @@ DATABASES = {
 }
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite1',
 #     }
 # }
 

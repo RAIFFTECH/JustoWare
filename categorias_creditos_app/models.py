@@ -3,7 +3,7 @@ from clientes_app.models import CLIENTES
 from justo_app.opciones import OPC_CRE_CATEGORIA
 # Create your models here.
 class CAT_DES_DIA_CRE(models.Model):
-    cliente = models.ForeignKey(CLIENTES, on_delete=models.CASCADE, verbose_name='Cliente')
+    cliente = models.ForeignKey(CLIENTES, on_delete=models.PROTECT, verbose_name='Cliente')
     codigo = models.IntegerField(verbose_name='Código')
     categoria = models.CharField(max_length=1, null=False, choices=OPC_CRE_CATEGORIA, verbose_name='Categoria')
     minimo_dias = models.IntegerField(null=True, verbose_name='Mínimo Días')

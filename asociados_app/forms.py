@@ -5,5 +5,5 @@ from .models import ASOCIADOS, ASO_BENEF, ASO_REFERENCIAS
 class CrearForm(forms.ModelForm):
     
     class Meta:
-        model = ASOCIADOS,ASO_BENEF,ASO_REFERENCIAS
+        model = ASOCIADOS
         fields = "__all__"
